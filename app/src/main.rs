@@ -1,6 +1,6 @@
-use stringy::modules::vowels::VowelsUppercase;
-use stringy::modules::vowels::VowelsUndercase;
-use stringy::modules::email::EmailSeparated;
+use stringy::modules::vowels::{count_lowercase_vowels, count_uppercase_vowels};
 fn main() {
-    println!("Hello, world! {}", VERION);
+    let string = "Hello, world!";
+    let e: usize = count_lowercase_vowels(string);
+    println!("Hello, world! {}", e);
 }
