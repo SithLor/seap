@@ -1,0 +1,13 @@
+{
+    "recommendations": [
+        "aaron-bond.better-comments",
+        "bierner.comment-tagged-templates",
+        "visualstudioexptteam.vscodeintellicode",
+        "visualstudioexptteam.intellicode-api-usage-examples",
+        "bierner.jsdoc-markdown-highlighting",
+        "gruntfuggly.todo-tree",
+        "tamasfe.even-better-toml",
+        "christian-kohler.path-intellisense",
+        "dtsvet.vscode-wasm"
+    ]
+}
