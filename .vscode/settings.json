@@ -3,6 +3,7 @@
         "./rsjsc/Cargo.toml",
         "./rsjsc_lib/Cargo.lock",
         "./strictjs/strictjs_lib/Cargo.toml",
+        "./app/Cargo.toml"
     ],
     "rust-analyzer.showUnlinkedFileNotification": false
 }

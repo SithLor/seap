@@ -1,4 +1,10 @@
-use std::f64::consts::E;
+
+
+
+#[inline(always)]
+fn E() -> f64 {
+    2.718281828459045
+}
 
 pub enum MathSign {
     Positive,
@@ -236,7 +242,7 @@ pub fn floor(x: f64) -> f64 {
  */
 pub fn log(x: f64) -> f64 {
     //return the natural logarithm (base e) of a f64.
-    return x.log(E);
+    return x.log(E());
 }
 /**
  * Returns the larger of a set of supplied numeric expressions.
