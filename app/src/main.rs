@@ -1,6 +1,9 @@
- 
+use rsjs_lib::file::get_file_extension;
+use rsjs_lib::file::PathMode;
+
+
 fn main() {
 
-    let e = rsjs_lib::strings::add_delimter(vec!["a", "b", "c"], '|');
-    println!("{}", e);
+    let file = get_file_extension("test.js",PathMode::StringMethod);
+    println!("{}",file);
 }

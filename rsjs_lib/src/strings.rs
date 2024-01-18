@@ -19,3 +19,14 @@ pub fn remove_delimter(string: String,delimter:char) -> Vec<String> {
     }
     vec
 }
+//turn String to static str
+#[macro_export]
+macro_rules! staticify {
+    ($string:expr) => {
+        {
+            let string: String = $string.to_string();
+            let string: &'static str = Box::leak(string.into_boxed_str());
+            string
+        }
+    };
+}

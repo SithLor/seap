@@ -1,7 +1,7 @@
 
 //from https://github.com/TheAlgorithms/Rust/blob/master/src/math/ceil.rs
 //mit license
-pub fn ceil(x: f64) -> f64 {
+pub fn _ceil(x: f64) -> f64 {
     let x_rounded_towards_zero = x as i32 as f64;
     if x < 0. || x_rounded_towards_zero == x {
         x_rounded_towards_zero
