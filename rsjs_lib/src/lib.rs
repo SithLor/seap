@@ -1,4 +1,4 @@
-
+pub mod excel;
 pub mod file;
 pub mod info;
 pub mod js_math;

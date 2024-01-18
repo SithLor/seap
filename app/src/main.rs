@@ -1,9 +1,9 @@
-use rsjs_lib::file::get_file_extension;
-use rsjs_lib::file::PathMode;
+use rsjs_lib::excel::UsFiat;
+
 
 
 fn main() {
-
-    let file = get_file_extension("test.js",PathMode::StringMethod);
-    println!("{}",file);
+    let mut file: UsFiat = UsFiat::new();
+    file.add_five_dollars(20);
+    println!("{}",file.get_value());
 }
