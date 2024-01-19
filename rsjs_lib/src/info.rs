@@ -183,6 +183,7 @@ macro_rules! called_from {
 }
 #[inline(always)]
 pub fn call_from() -> String {
+
     let string: String = format!("(/{}/{}:{}:{})",env!("CARGO_PKG_NAME"),file!(),line!(),column!());
     string
 }

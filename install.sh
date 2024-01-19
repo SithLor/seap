@@ -4,5 +4,5 @@ cargo install cargo-bloat
 ##https://rustwasm.github.io/twiggy/install.html
 cargo install twiggy
 ##https://github.com/johnthagen/min-sized-rust?tab=readme-ov-file
-
+rustup target add wasm32-unknown-unknown
 cargo install wasm-pack

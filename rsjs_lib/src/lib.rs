@@ -2,7 +2,7 @@ pub mod excel;
 pub mod file;
 pub mod info;
 pub mod js_math;
-pub mod js_crypto;
+pub mod remote;
 pub mod strings;
 
 #[cfg(test)]

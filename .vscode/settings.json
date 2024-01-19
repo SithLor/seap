@@ -1,9 +1,8 @@
 {
     "rust-analyzer.linkedProjects": [
-        "./rsjsc/Cargo.toml",
         "./rsjsc_lib/Cargo.lock",
-        "./strictjs/strictjs_lib/Cargo.toml",
-        "./app/Cargo.toml"
+        "./app/Cargo.toml",
+        "./rswasm/Cargo.toml",
     ],
     "rust-analyzer.showUnlinkedFileNotification": false
 }
