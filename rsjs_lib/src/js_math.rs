@@ -43,7 +43,6 @@ pub fn clz32(x: f64) -> f64{
  * @param x The numeric expression to test
  */
 pub fn sign(x: f64) -> MathSign {
-    //get the sign of a number
     if x > 0.0 {
         MathSign::Positive
     } else if x < 0.0 {
