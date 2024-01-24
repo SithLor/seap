@@ -8,6 +8,7 @@
         "gruntfuggly.todo-tree",
         "tamasfe.even-better-toml",
         "christian-kohler.path-intellisense",
-        "dtsvet.vscode-wasm"
+        "dtsvet.vscode-wasm",
+        "bierner.emojisense"
     ]
 }
