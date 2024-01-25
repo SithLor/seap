@@ -1,7 +1,6 @@
 
 
 public class Main {
-    
     public static java.util.ArrayList<String> ScannerTokensToArray(java.util.Scanner arg) {
         java.util.ArrayList<String> ar = new java.util.ArrayList<String>();
         while(arg.hasNext()){
