@@ -9,6 +9,7 @@
         "tamasfe.even-better-toml",
         "christian-kohler.path-intellisense",
         "dtsvet.vscode-wasm",
-        "bierner.emojisense"
+        "bierner.emojisense",
+        "ms-vscode.hexeditor"
     ]
 }
