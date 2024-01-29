@@ -16,5 +16,6 @@ pub fn call_from() -> String {
     string
 }
 fn main() {
-    println!("Hello, world!");
+    let e = "e";
+    
 }

@@ -1,12 +1,13 @@
 package src;
 
-public class Main implements src.IMain {
-
+public class Main  {
     public static java.util.ArrayList<String> ScannerTokensToArray(java.util.Scanner arg) {
         java.util.ArrayList<String> ar = new java.util.ArrayList<String>();
+        String Data = arg.next().toString();
         while(arg.hasNext()){
             ar.add(arg.next());
         }
+
         arg.close();
         return ar;
     }
