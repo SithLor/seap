@@ -1,5 +1,3 @@
 ./src/Main.java
-./src/Files.java
 ./src/cmd/util.java
 ./src/Emoji.java
-./src/Main.java
