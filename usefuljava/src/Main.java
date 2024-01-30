@@ -1,7 +1,9 @@
 package src;
 
 public class Main  {
-    public static java.util.ArrayList<String> ScannerTokensToArray(java.util.Scanner arg) {
+    
+    
+    static java.util.ArrayList<String> ScannerTokensToArray(java.util.Scanner arg) {
         java.util.ArrayList<String> ar = new java.util.ArrayList<String>();
         String Data = arg.next().toString();
         while(arg.hasNext()){
@@ -12,6 +14,7 @@ public class Main  {
         return ar;
     }
     public static void main(String[] args){
-        System.out.println(src.cmd.util.BLUE+Emoji.MERICA+"  This Is a test"+src.cmd.util.RESET);
+        src.rust e = new rust();
+        System.out.println(src.rust.format("{} hi {}", {src.cmd.util.BLUE,src.cmd.util.RESET}));
     }
 }
