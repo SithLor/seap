@@ -8,18 +8,11 @@ public class Main  {
             ar.add(arg.next());
         }
         arg.close();
+    
         return ar;
     }
     public static void main(String[] args){
 
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("This run in a theard");
-            }
-        };
-
-        Thread thread = new Thread(runnable);
-        thread.start();
+        
     }
 }
