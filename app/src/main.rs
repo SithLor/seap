@@ -16,7 +16,7 @@ pub fn call_from() -> String {
     string
 }
 fn main() {
-    let e = "e";
-    let f= f64 = 1.0
-    f.clone()
+    println!("This Program Is Very beta")
+    // add rust functions
+    
 }
