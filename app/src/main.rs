@@ -17,5 +17,6 @@ pub fn call_from() -> String {
 }
 fn main() {
     let e = "e";
-    
+    let f= f64 = 1.0
+    f.clone()
 }
