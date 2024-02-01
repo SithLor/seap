@@ -1,6 +1,9 @@
-use rusty_jsc::{JSContext, JSValue};
+use rusty_jsc::JSContext;
+use rusty_jsc::JSValue;
+use rusty_jsc::JSObject;
 use rusty_jsc_macros::callback;
-use base64::prelude::*;
+
+mod base64;
 
 #[callback]
 fn greet(
@@ -14,11 +17,12 @@ fn greet(
 //https://github.com/wasmerio/rusty_jsc/blob/main/examples/hello.rs
 fn main() {
     let mut context: JSContext = JSContext::default();
-    let callback: JSValue = JSValue::callback(&context, Some(greet));
-    let global: rusty_jsc::JSObject = context.get_global_object();
-    global.set_property(&context, "greet", callback).unwrap();
+    let base64_atob_callback: JSValue = JSValue::callback(&context, Some(base64::atob));
+    
+    let global: JSObject = context.get_global_object();
+    global.set_property(&context, "_atob", base64_atob_callback).unwrap();
 
-    match context.evaluate_script("greet('Tom')", 1) {
+    match context.evaluate_script("_atob('Tom')", 1) {
         Ok(value) => {
             println!("{}", value.to_string(&context).unwrap());
         }
