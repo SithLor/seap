@@ -1,3 +1,4 @@
+use std::string;
 use std::vec;
 
 use base64::Engine;
@@ -8,6 +9,9 @@ use rusty_jsc::JSObject;
 use rusty_jsc::JSValue;
 use base64::engine::general_purpose::STANDARD;
 use base64::Engine as _;
+use base64::DecodeError;
+use core::result;
+use std::string::FromUtf8Error;
 
 #[callback]
 pub fn atob(
@@ -29,12 +33,11 @@ pub fn btoa(
     this: JSObject,
     args: &[JSValue],
 ) -> Result<JSValue,JSValue>{
-    let data: Vec<> = args[0].to_string(&ctx).unwrap().to_string().as_mut_vec();
-    let buff: &mut Vec<u8>;
-    let decode = STANDARD.decode_vec(data,buff)
+    let data: &str = args[0].to_string(&ctx).unwrap().to_string().as_str();
+    let decode = 
     Ok(
         JSValue::string(&ctx,
-            buff
+            
         )
     )
 }

@@ -17,10 +17,16 @@ fn greet(
 //https://github.com/wasmerio/rusty_jsc/blob/main/examples/hello.rs
 fn main() {
     let mut context: JSContext = JSContext::default();
+    
     let base64_atob_callback: JSValue = JSValue::callback(&context, Some(base64::atob));
+    let base64_btoa_callback:JSValue = JSValue::callback(&context, Some(base64::btoa));
     
     let global: JSObject = context.get_global_object();
+
+
     global.set_property(&context, "_atob", base64_atob_callback).unwrap();
+    global.set_property(&context, "_btoa", base64_btoa_callback).unwrap();
+
 
     match context.evaluate_script("_atob('Tom')", 1) {
         Ok(value) => {
