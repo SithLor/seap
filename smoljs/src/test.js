@@ -1,1 +1,1 @@
-new URL("https://www.google.com").protocol;
+alert("This a test")

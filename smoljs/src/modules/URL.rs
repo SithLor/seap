@@ -55,6 +55,8 @@ fn URL(
     
         
     let e: UrlParts = paser_url(String::from(js_args_to_utf8_vec(&ctx,args)[0].to_string()).as_str())
-    let _e = [JSValue::string(&ctx, e.)] 
+    let _e = [
+        JSValue::string(&ctx, e.fragment)
+    ] 
 
 }
