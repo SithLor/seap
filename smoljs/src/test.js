@@ -1,0 +1,1 @@
+new URL("https://www.google.com").protocol;

@@ -7,3 +7,9 @@ idea for a program
 
 mini js eninge in rust apps 
 for amp
+
+
+API
+atob : DONE
+btoa : NOT DONE
+ 

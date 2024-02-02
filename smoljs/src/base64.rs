@@ -1,6 +1,5 @@
 use std::string;
 use std::vec;
-
 use base64::Engine;
 use rusty_jsc::JSString;
 use rusty_jsc_macros::callback;
@@ -33,11 +32,9 @@ pub fn btoa(
     this: JSObject,
     args: &[JSValue],
 ) -> Result<JSValue,JSValue>{
-    let data: &str = args[0].to_string(&ctx).unwrap().to_string().as_str();
-    let decode = 
     Ok(
         JSValue::string(&ctx,
-            
+            "NOT IMPLENT"
         )
     )
 }

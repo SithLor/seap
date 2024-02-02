@@ -1,2 +1,2 @@
-const e = new URL("https://www.google.com");
-console.log(e.);
+const e = new URL("https://www.google.com").protocol
+console.log();
