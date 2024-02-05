@@ -1,1 +1,1 @@
-alert("This a test")
+console.dir(new URL("https://google.com/path").origin);

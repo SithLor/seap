@@ -9,39 +9,26 @@ use url::ParseError;
 use super::helper::js_args_to_utf8_vec
 
 
-struct UrlParts {
-    scheme: String,
-    username: String,
-    password: Option<String>,
-    host: Option<String>,
-    port: Option<u16>,
-    path: String,
-    query: Option<String>,
-    fragment: Option<String>,
-}
-fn paser_url(url:&str)-> UrlParts{
+
+fn paser_url(url:&str)-> Url{
     let parsed_url: Url;
     let e_1: Result<Url, ParseError> = url::Url::parse(url);       
     let data: Url = match e_1{
-        Ok(url) => rust_url,
+        Ok(url) => parsed_url,
         Err(e) => {
             panic!("You Some How Messuped");
         }
     };
-    let parts: UrlParts = UrlParts {
-        scheme: parsed_url.scheme().to_string(),
-        username: parsed_url.username().to_string(),
-        password: parsed_url.password().map(|s| s.to_string()),
-        host: parsed_url.host_str().map(|s| s.to_string()),
-        port: parsed_url.port(),
-        path: parsed_url.path().to_string(),
-        query: parsed_url.query().map(|s| s.to_string()),
-        fragment: parsed_url.fragment().map(|s| s.to_string()),
-    };
-
-    return parts;
+    return parsed_url;
 }
 
+
+struct _URL {
+    herf:JSValue,
+    pathname:JSValue,
+    hostname:JSValue,
+
+}
 fn URL(
     ctx: JSContext,
     function: JSObject,
@@ -53,10 +40,18 @@ fn URL(
 
      
     
-        
-    let e: UrlParts = paser_url(String::from(js_args_to_utf8_vec(&ctx,args)[0].to_string()).as_str())
-    let _e = [
-        JSValue::string(&ctx, e.fragment)
-    ] 
 
+    let e: Url= paser_url(String::from(js_args_to_utf8_vec(&ctx,args)[0].to_string()).as_str());
+    let JS_Object: JSObject = JSObject::new(&ctx);
+    
+    //get the value from e.domain that has Option<&str> type
+    let domain: String= e.domain().unwrap_or("localhost").to_string();
+
+    JS_Object.set_property(
+        &ctx, 
+        "domain", 
+        JSValue::string(&ctx, domain)
+    );
+
+    Ok(e);
 }
