@@ -6,7 +6,7 @@ use rusty_jsc_macros::callback;
 use url::Url;
 use url::ParseError;
 
-use super::helper::js_args_to_utf8_vec
+use super::helper::js_args_to_utf8_vec;
 
 
 
@@ -29,7 +29,7 @@ struct _URL {
     hostname:JSValue,
 
 }
-fn URL(
+pub fn URL(
     ctx: JSContext,
     function: JSObject,
     this: JSObject,
@@ -53,5 +53,5 @@ fn URL(
         JSValue::string(&ctx, domain)
     );
 
-    Ok(e);
+    return Ok(JS_Object);
 }
