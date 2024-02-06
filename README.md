@@ -8,8 +8,11 @@ idea for a program
 mini js eninge in rust apps 
 for amp
 
+#[macro_export]
+macro_rules! called_from {
+    () => {
+        format!("{}/{}:{}",file!(),line!(),column!())
+    };
+}
 
-API
-atob : DONE
-btoa : NOT DONE
- 
+
