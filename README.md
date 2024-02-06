@@ -16,3 +16,4 @@ macro_rules! called_from {
 }
 
 
+add();
