@@ -6,6 +6,11 @@ use rusty_jsc_macros::callback;
 
 mod modules;
 
+/// .
+///
+/// # Panics
+///
+/// Panics if .
 //https://github.com/wasmerio/rusty_jsc/blob/main/examples/hello.rs
 fn main() {
     let mut context: JSContext = JSContext::default();
