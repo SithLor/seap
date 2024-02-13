@@ -5,6 +5,7 @@ macro_rules! called_from {
     };
 }
 
+pub mod windows;
 
 #[cfg(test)]
 mod tests {
