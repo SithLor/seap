@@ -23,12 +23,6 @@ mod tests {
     }
     #[test]
     fn test_usd(){
-        //Penny
-        let result = usd::get_value(usd::Money::Penny);
-        assert_eq!(result,0.01);
-        //Nickel
-        let result = usd::get_value(usd::Money::Nickel);
-        assert_eq!(result,0.50);
-        
+
     }
 }

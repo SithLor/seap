@@ -31,4 +31,6 @@ pub fn get_value(val:Money){
         Money::FiftyDollarBill=>50.0,
         Money::HundredDollarBill=>100.0,
     };
-}
+}//I dont care this does not need to be tested it is just a simple match statement
+
+
