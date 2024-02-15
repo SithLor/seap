@@ -4,9 +4,9 @@ macro_rules! called_from {
         format!("/{}/{}:{}",file!(),line!(),column!())
     };
 }
-
-pub mod windows;
-
+//MOD EXPORTS
+pub mod platfrom;
+pub mod usd;
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -15,5 +15,20 @@ mod tests {
     fn it_works() {
         let result = add(2, 2);
         assert_eq!(result, 4);
+    }
+    #[test]
+    fn test_called_from(){
+        let result = called_from!();
+        assert_eq!(result,"/home/runner/work/mango_lib/mango_lib/src/lib.rs:26:5");
+    }
+    #[test]
+    fn test_usd(){
+        //Penny
+        let result = usd::get_value(usd::Money::Penny);
+        assert_eq!(result,0.01);
+        //Nickel
+        let result = usd::get_value(usd::Money::Nickel);
+        assert_eq!(result,0.50);
+        
     }
 }
