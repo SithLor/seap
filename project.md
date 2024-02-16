@@ -1,1 +1,1 @@
-fast portable java libary 
+fast portable util
