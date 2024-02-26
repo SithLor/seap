@@ -2,6 +2,7 @@ class MyClass {
     member: string;
     constructor(member: string) {
         this.member = member;
+        this.h = 1;
     }
     method1() {
         // Some code here
@@ -27,4 +28,4 @@ function printClassStructure(obj: any) {
     }
 }
 
-printClassStructure(new MyClass('example'));
+let VER = "0.1"
