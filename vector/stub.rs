@@ -1,4 +1,0 @@
-//GetLastError
-//GetUserNameA
-//GetVersion 
-
