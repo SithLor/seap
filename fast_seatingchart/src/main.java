@@ -3,7 +3,7 @@ import java.nio.file.*;
 import java.util.*;
 
 public class main {
-    private static final String INPUT_FILE = "./people.m.txt";
+    private static final String INPUT_FILE = "./people.txt";
     private static final String OUTPUT_FILE = "./seating_chart.txt";
 
     public static void main(String[] args) throws IOException {
@@ -39,6 +39,7 @@ public class main {
             seatingChart[row][col] = people.get(i);
         }
 
+        
         BufferedWriter output = new BufferedWriter(new FileWriter(OUTPUT_FILE));
         for (String[] row : seatingChart) {
             for (String person : row) {

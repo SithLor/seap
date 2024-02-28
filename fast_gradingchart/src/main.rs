@@ -4,9 +4,9 @@ const INPUT_FILE: &str = "./src/input.txt";
 use std::io::{BufRead, BufWriter, Write};
 
 fn min_rows_cols(amount: usize) -> (usize, usize) {
-    let sqrt = (amount as f64).sqrt();
-    let rows = sqrt.ceil() as usize;
-    let cols = if rows * (rows - 1) >= amount {
+    let sqrt: f64 = (amount as f64).sqrt();
+    let rows: usize = sqrt.ceil() as usize;
+    let cols: usize = if rows * (rows - 1) >= amount {
         rows - 1
     } else {
         rows

@@ -1,5 +1,5 @@
 //use rustup 2023 
-const INPUT_FILE: &str = "./src/people.m.txt";
+const INPUT_FILE: &str = "./src/people.txt";
 const OUTPUT_FILE: &str = "./src/seating_chart.txt";
 
 use std::io::{BufRead, BufWriter, Write};
@@ -10,9 +10,9 @@ fn min_rows_cols(amount: usize) -> (usize, usize) {
     (rows, cols)
 }
 fn code_1(){
-    let file = std::fs::File::open(INPUT_FILE).unwrap();
-    let reader = std::io::BufReader::new(file);
-    let mut people = Vec::new();
+    let file: std::fs::File = std::fs::File::open(INPUT_FILE).unwrap();
+    let reader: std::io::BufReader<std::fs::File> = std::io::BufReader::new(file);
+    let mut people: Vec<String> = Vec::new();
     for line in reader.lines() {
         let line = line.unwrap();
         people.push(line);
@@ -20,11 +20,11 @@ fn code_1(){
     let (rows, cols) = min_rows_cols(people.len());
     let mut seating_chart = vec![vec!["".to_string(); cols]; rows];
     for (i, person) in people.iter().enumerate() {
-        let row = i / cols;
-        let col = i % cols;
+        let row: usize = i / cols;
+        let col: usize = i % cols;
         seating_chart[row][col] = person.to_string();
     }
-    let mut file = std::fs::File::create(OUTPUT_FILE).unwrap();
+    let mut file: std::fs::File = std::fs::File::create(OUTPUT_FILE).unwrap();
     for row in seating_chart {
         for person in row {
             write!(file, "{:20}", person).unwrap();
@@ -67,7 +67,7 @@ fn code_2() {
 fn main() {
     //Get the time it takes to run the code
     let start = std::time::Instant::now();
-    code_1();
+    code_2();
     println!("Time: {}ms", start.elapsed().as_millis());
     
 }
