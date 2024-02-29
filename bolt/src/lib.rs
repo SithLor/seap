@@ -2,38 +2,35 @@ pub fn add(left: usize, right: usize) -> usize {
     left + right
 }
 
-pub struct _2D_Array {
-    pub data: Vec<Vec<usize>>,
-}
-impl _2D_Array {
-    pub fn new(rows: usize, cols: usize) -> Self {
-        let mut data: Vec<Vec<usize>> = Vec::with_capacity(rows);
-        for _ in 0..rows {
-            let mut row: Vec<usize> = Vec::with_capacity(cols);
-            for _ in 0..cols {
-                row.push(0);
-            }
-            data.push(row);
+pub mod arr;
+
+
+pub type WINDOWS_PATH_SEPARATOR = char;
+pub type UNIX_PATH_SEPARATOR = char;
+pub const WINDOWS_PATH_SEPARATOR: WINDOWS_PATH_SEPARATOR = '\\';
+pub const UNIX_PATH_SEPARATOR: char = '/';
+pub const HTTP_OK: u16 = 200;
+pub const HTTP_NOT_FOUND: u16 = 404;
+pub const HTTP_INTERNAL_SERVER_ERROR: u16 = 500;
+pub const HTTP_FORBIDDEN: u16 = 403;
+pub const HTTP_BAD_REQUEST: u16 = 400;
+pub const HTTP_UNAUTHORIZED: u16 = 401;
+pub const UNIX_PATH_SEPARATOR: char = '/';
+pub const PI: f64 = 3.14159;
+
+pub fn safe_path(arg: &str) -> String {
+    //check for / to // or \ to \\
+    let mut new_arg = arg.to_string();
+    for c in new_arg.chars() {
+        if c == '/' {
+            new_arg = new_arg.replace("/", "//");
         }
-        Self { data }
+        if c == '\\' {
+            new_arg = new_arg.replace("'", "\\'");
+        }
     }
-    pub fn get(&self, row: usize, col: usize) -> usize {
-        self.data[row][col]
-    }
-    pub fn set(&mut self, row: usize, col: usize, value: usize) {
-        self.data[row][col] = value;
-    }
-    
-    pub fn rows(&self) -> usize {
-        self.data.len()
-    }
-    pub fn cols(&self) -> usize {
-        self.data[0].len()
-    }
+    return new_arg;
 }
-
-
-
 #[cfg(test)]
 mod tests {
     use super::*;
