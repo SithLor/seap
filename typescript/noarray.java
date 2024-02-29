@@ -1,7 +1,7 @@
 import java.io.*;
 import java.nio.file.*;
 import java.util.*;
-//gavin rhoades 2/28/2024 apc121 
+//gavin 2/28/2024 apc121 
 public class noarray {
     private static final String INPUT_FILE = "./people.txt";
     private static final String OUTPUT_FILE = "./seating_chart.txt";
