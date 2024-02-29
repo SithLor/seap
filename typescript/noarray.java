@@ -55,7 +55,9 @@ public class noarray {
             System.out.println();
         }
     }
-    public static changeStudent(String[][] arg){
-        //
+    public static void changeStudent(String[][] arg, int row, int col, String newName){
+        if (row >= 0 && row < arg.length && col >= 0 && col < arg[row].length) {
+            arg[row][col] = newName;
+        }
     }
 }
