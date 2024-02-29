@@ -11,7 +11,7 @@ struct _2DArray<T> {
 }
 impl _2DArray<T> {
     pub fn new(rows: usize, cols: usize) -> _2DArray<T> {
-        let mut arr = Vec::with_capacity(rows);
+        let mut arr: Vec<Vec<_>> = Vec::with_capacity(rows);
         for _ in 0..rows {
             arr.push(Vec::with_capacity(cols));
         }

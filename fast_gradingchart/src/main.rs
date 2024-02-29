@@ -1,8 +1,8 @@
 //use rustup 2024 ; cargo run 
 const OUTPUT_FILE: &str = "./src/output.txt";
-const INPUT_FILE: &str = "./src/input.txt";
-use std::io::{BufRead, BufWriter, Write};
-
+const INPUT_FILE: &str = "./src/input.m.txt";
+use std::{fs::File, io::{BufRead, BufWriter, Write}};
+use rayon::prelude::*; // This line brings the rayon prelude into scope
 fn min_rows_cols(amount: usize) -> (usize, usize) {
     let sqrt: f64 = (amount as f64).sqrt();
     let rows: usize = sqrt.ceil() as usize;
@@ -13,6 +13,29 @@ fn min_rows_cols(amount: usize) -> (usize, usize) {
     };
     (rows, cols)
 }
+use std::collections::HashMap;
+use std::cell::RefCell;
+thread_local! {
+    static MEMO: RefCell<HashMap<usize, (usize, usize)>> = RefCell::new(HashMap::new());
+}
+fn min_rows_cols_fast(amount: usize) -> (usize, usize) {
+    MEMO.with(|memo| {
+        if let Some(&result) = memo.borrow().get(&amount) {
+            return result;
+        }
+        let sqrt: f64 = (amount as f64).sqrt();
+        let rows: usize = sqrt.ceil() as usize;
+        let cols: usize = if rows * (rows - 1) >= amount {
+            rows - 1
+        } else {
+            rows
+        };
+        let result = (rows, cols);
+        memo.borrow_mut().insert(amount, result);
+        result
+    })
+}
+
 fn code_slow(){
         //4044 
         //file input
@@ -41,9 +64,38 @@ fn code_slow(){
         }
     
 }
+fn code_rayon(){
+    use rayon::prelude::*;
 
+    let input: std::fs::File = File::open(INPUT_FILE).expect("Unable to read file");
+    let input: std::io::BufReader<File> = std::io::BufReader::new(input);
 
+    let output: File = File::create(OUTPUT_FILE).expect("Unable to create file");
+    let mut output: BufWriter<File> = BufWriter::new(output);
 
+    let mut grades: Vec<i8> = Vec::new();
+
+    for line in input.lines() {
+        let line: String = line.expect("Unable to read line");
+        let grade: i8 = line.split_whitespace().nth(1)
+            .and_then(|s| s.parse().ok())
+            .expect("Unable to parse grade");
+        grades.push(grade);
+    }
+    let sum: i32 = grades.par_iter().map(|&x| x as i32).sum();
+    let avg: f64 = sum as f64 / grades.len() as f64;
+    println!("Average: {}", avg);
+
+    let (rows, cols) = min_rows_cols_fast(grades.len());
+    for i in 0..rows {
+        for j in 0..cols {
+            if let Some(grade) = grades.get(i * cols + j) {
+                write!(output, "{} ", grade).expect("Unable to write to file");
+            }
+        }
+        writeln!(output).unwrap();
+    }
+}
 fn code_fast() {
     let input: std::fs::File = std::fs::File::open(INPUT_FILE).expect("Unable to read file");
     let input: std::io::BufReader<std::fs::File> = std::io::BufReader::new(input);
@@ -64,7 +116,38 @@ fn code_fast() {
     let avg: f64 = grades.iter().map(|&x| x as i32).sum::<i32>() as f64 / grades.len() as f64;
     println!("Average: {}", avg);
 
-    let (rows, cols) = min_rows_cols(grades.len());
+    let (rows, cols) = min_rows_cols_fast(grades.len());
+    for i in 0..rows {
+        for j in 0..cols {
+            if let Some(grade) = grades.get(i * cols + j) {
+                write!(output, "{} ", grade).expect("Unable to write to file");
+            }
+        }
+        writeln!(output).unwrap();
+    }
+}
+
+
+
+
+
+fn code_rayon_optimized() {
+    let input: File = File::open(INPUT_FILE).expect("Unable to read file");
+    let input: std::io::BufReader<File> = std::io::BufReader::new(input);
+
+    let output: File = File::create(OUTPUT_FILE).expect("Unable to create file");
+    let mut output: BufWriter<File> = BufWriter::new(output);
+
+    let grades: Vec<i8> = input.lines()
+        .filter_map(|line: Result<String, std::io::Error>| line.ok())
+        .filter_map(|line: String| line.split_whitespace().nth(1).map(|s| s.parse().ok()).flatten())
+        .collect();
+
+    let sum: i32 = grades.par_iter().map(|&x| x as i32).sum();
+    let avg: f64 = sum as f64 / grades.len() as f64;
+    println!("Average: {}", avg);
+
+    let (rows, cols) = min_rows_cols_fast(grades.len());
     for i in 0..rows {
         for j in 0..cols {
             if let Some(grade) = grades.get(i * cols + j) {
@@ -75,8 +158,8 @@ fn code_fast() {
     }
 }
 fn main() {
-    let start = std::time::Instant::now();
-    code_fast();
+    let start: std::time::Instant = std::time::Instant::now();
+    code_rayon_optimized();
     println!("Time: {}ms", start.elapsed().as_millis());
 }
 
