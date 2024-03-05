@@ -1,4 +1,4 @@
-package exs.client;
+package exs.shared;
 public class StringBuilder {
     private char[] chars;
     private int size;

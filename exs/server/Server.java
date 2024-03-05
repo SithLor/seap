@@ -15,7 +15,7 @@ public class Server {
         try {
             ServerSocket serverSocket = new ServerSocket(PORT);
             System.out.println("Server is listening on port "+PORT);
-
+            
             while (true) {
                 Socket socket = serverSocket.accept();
                 System.out.println("New client connected");
@@ -29,7 +29,9 @@ public class Server {
                 System.out.println(DATA_FROM_CLIENT);
             }
         } catch (Exception e) {
+            
             e.printStackTrace();
         }
+        
     }
 }

