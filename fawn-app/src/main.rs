@@ -6,15 +6,39 @@
 //https://lenarn.microsoft.com/en-us/windows/win32/debug/system-error-codes--0-499-
 //https://www.vergiliusproject.com/kernels/x64/Windows%2010%20%7C%202016/2110%2021H2%20(November%202021%20Update)/_OBJECT_ATTRIBUTES
 //https://www.vergiliusproject.com/kernels/x64/Windows%2011
-//mod windows;
+//https://www.geoffchappell.com/studies/windows/km/ntoskrnl/inc/api/pebteb/peb/index.htm
 
 
-fn main() {
-    let gs: u64;
-    unsafe {
-        std::arch::asm!("mov {}, gs", out(reg) gs);
-    }
-    println!("GS: {}", gs);
-    println!("Hello, world!");
+use std::arch::asm;
+
+use std::os::raw::{c_void, c_uchar};
+
+#[repr(C)]
+struct RTL_USER_PROCESS_PARAMETERS {
+    // Define the fields of the RTL_USER_PROCESS_PARAMETERS structure here
 }
 
+#[repr(C)]
+struct PTEB {
+    _reserved: [u8; 0x02], // Reserve space for the fields before BeingDebugged
+    BeingDebugged: c_uchar,
+    _reserved2: [u8; 0x1D], // Reserve space for the fields between BeingDebugged and ProcessParameters
+    ProcessParameters: *const RTL_USER_PROCESS_PARAMETERS,
+    // Define the rest of the fields of the TEB here
+}
+
+fn main() {
+    let offset: i32 = 0x60;
+    let teb: *const PTEB;
+    unsafe {
+        asm!(
+            "mov {0}, gs:[{1}]",
+            out(reg) teb,
+            in(reg) offset,
+        );
+        // Now `teb` is a pointer to the TEB
+        // You can access the BeingDebugged field like this:
+        let being_debugged = (*teb).BeingDebugged;
+        println!("BeingDebugged: {}", being_debugged);
+    }
+}

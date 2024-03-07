@@ -12,8 +12,6 @@ extern "system" fn DllMain(
     match call_reason {
         DLL_PROCESS_ATTACH => process_attach(),
         DLL_PROCESS_DETACH => process_detach(),
-        DLL_THREAD_ATTACH => thread_attach(),
-        DLL_THREAD_DETACH => thread_detach(),
         _ => ()
     }
 
