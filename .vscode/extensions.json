@@ -11,6 +11,7 @@
         "dtsvet.vscode-wasm",
         "bierner.emojisense",
         "ms-vscode.hexeditor",
-        "rust-lang.rust-analyzer"
+        "rust-lang.rust-analyzer",
+        "evan-buss.font-switcher"
     ]
 }
