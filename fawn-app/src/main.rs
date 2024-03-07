@@ -6,9 +6,15 @@
 //https://lenarn.microsoft.com/en-us/windows/win32/debug/system-error-codes--0-499-
 //https://www.vergiliusproject.com/kernels/x64/Windows%2010%20%7C%202016/2110%2021H2%20(November%202021%20Update)/_OBJECT_ATTRIBUTES
 //https://www.vergiliusproject.com/kernels/x64/Windows%2011
-mod windows;
+//mod windows;
+
 
 fn main() {
-    windows::EcsapePath("C:\\My\\Path\\Here");
-    print!("Hello, world!");
+    let gs: u64;
+    unsafe {
+        std::arch::asm!("mov {}, gs", out(reg) gs);
+    }
+    println!("GS: {}", gs);
+    println!("Hello, world!");
 }
+

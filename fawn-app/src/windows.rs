@@ -2,8 +2,6 @@
 pub mod system_error_hex;
 pub mod system_error_num;
 pub mod system_error_human;
-pub mod types;
-pub mod visual_studio;
 //rust marco like Path{C:\\My\\Path\\Here} -> "C:\\My\\Path\\Here"
 
 
@@ -38,3 +36,6 @@ pub mod TYPES {
     pub type VOID_PTR = *mut std::ffi::c_void;
 }
 
+pub mod intrenstic {
+    
+}

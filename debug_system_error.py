@@ -83,7 +83,7 @@ def remove_null(filename):
     with open(filename, 'w', encoding='utf-8') as f:
         f.write(content)
 def write_to_rust_file_num(cache_data):
-    PROJECT_DIR = 'fawn-rust/src/windows/'
+    PROJECT_DIR = 'fawn-app/src/windows/'
     with open(PROJECT_DIR+'system_error_num.rs', 'w') as f:
         f.write('#![allow(dead_code)]\n')
         f.write('#![allow(unused_variables)]\n')
@@ -95,7 +95,7 @@ def write_to_rust_file_num(cache_data):
             f.write(f'/// {error_info["description"]}\n')
             f.write(f'pub const {error_info["error_status"]}: u32 = {error_code};\n')
 def write_to_rust_file_hex(cache_data):
-    PROJECT_DIR = 'fawn-rust/src/windows/'
+    PROJECT_DIR = 'fawn-app/src/windows/'
     with open(PROJECT_DIR+'system_error_hex.rs', 'w') as f:
         f.write('#![allow(dead_code)]\n')
         f.write('#![allow(unused_variables)]\n')
@@ -108,7 +108,7 @@ def write_to_rust_file_hex(cache_data):
             f.write(f'pub const {error_info["error_status"]}: u32 = {hex(int(error_code))};\n')
 
 def write_to_rust_file_human(cache_data):
-    PROJECT_DIR = 'fawn-rust/src/windows/'
+    PROJECT_DIR = 'fawn-app/src/windows/'
     with open(PROJECT_DIR+'system_error_human.rs', 'w') as f:
         f.write('#![allow(dead_code)]\n')
         f.write('#![allow(unused_variables)]\n')
