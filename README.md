@@ -6,8 +6,6 @@ dont be dumb ass run the fawn malware
 i am learn how to write rust for window ,malware 
 ONLY
 
-url for https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html
-https://godbolt.org/
 ```rust
 #[macro_export]
 macro_rules! called_from {
