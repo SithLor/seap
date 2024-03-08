@@ -1,6 +1,11 @@
 # seap
 a lib,app for lots ting like marcos and stuff
 
+This code not good this 
+dont be dumb ass run the fawn malware 
+i am learn how to write rust for window ,malware 
+ONLY
+
 url for https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html
 https://godbolt.org/
 idea for a program

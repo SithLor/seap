@@ -11,5 +11,9 @@
 mod windows;
 
 fn main() {
-    print!("Hello, world!")
+    let i:u64 = 0;
+    print!("DONT RUN IF YOU DONT KNOW WHAT YOU ARE DOING!")
+    if i ==  0 {
+        panic!("DONT RUN IF YOU DONT KNOW WHAT YOU ARE DOING! SET I TO 1 TO RUN!")
+    }
 }
