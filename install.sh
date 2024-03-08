@@ -13,7 +13,4 @@
 #cargo build --target x86_64-pc-windows-gnu
 
 #install stalle shit
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-pip install -r requirements.txt
-rustup target add x86_64-pc-windows-gnu
-sudo apt-get install gcc-mingw-w64-x86-64 -y
+

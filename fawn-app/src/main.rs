@@ -9,11 +9,12 @@
 //https://www.geoffchappell.com/studies/windows/km/ntoskrnl/inc/api/pebteb/peb/index.htm
 //http://undocumented.ntinternals.net/index.html?page=UserMode%2FStructures%2FRTL_DRIVE_LETTER_CURDIR.html
 mod windows;
-
 fn main() {
     let i:u64 = 0;
     print!("DONT RUN IF YOU DONT KNOW WHAT YOU ARE DOING!")
     if i ==  0 {
         panic!("DONT RUN IF YOU DONT KNOW WHAT YOU ARE DOING! SET I TO 1 TO RUN!")
+    } else {
+        
     }
 }
