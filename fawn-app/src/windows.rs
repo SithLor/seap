@@ -8,20 +8,18 @@ use std::os::raw::c_void;
 //https://learn.microsoft.com/en-us/windows/win32/api/ntdef/ns-ntdef-_unicode_string
 //http://undocumented.ntinternals.net/index.html?page=UserMode%2FStructures%2FRTL_DRIVE_LETTER_CURDIR.html
 //https://doxygen.reactos.org/d3/d61/include_2ndk_2pstypes_8h_source.html#l00643
-#[no_mangle]
+
 #[repr(C)]
 pub struct UNICODE_STRING {
     Length: USHORT,
     MaximumLength: USHORT,
     Buffer: USHORT_PTR, // PWSTR is a pointer to a wide string, which is represented as *mut u16 in Rust
 }
-#[no_mangle]
 #[repr(C)]
 pub struct LIST_ENTRY {
     Flink: *mut LIST_ENTRY,
     Blink: *mut LIST_ENTRY,
 }
-#[no_mangle]
 #[repr(C)]
 pub struct RTL_DRIVE_LETTER_CURDIR {
     Flags: USHORT,
@@ -29,7 +27,6 @@ pub struct RTL_DRIVE_LETTER_CURDIR {
     TimeStamp: ULONG,
     DosPath: UNICODE_STRING,
 }
-#[no_mangle]
 #[repr(C)]
 pub struct RTL_USER_PROCESS_PARAMETERS {
     MaximumLength: ULONG,
@@ -62,7 +59,6 @@ pub struct RTL_USER_PROCESS_PARAMETERS {
     RuntimeData: UNICODE_STRING,
     DLCurrentDirectory: [RTL_DRIVE_LETTER_CURDIR; 0x20],
 }
-#[no_mangle]
 #[repr(C)]
 pub struct PEB_LDR_DATA {
     Length: ULONG,
@@ -72,13 +68,11 @@ pub struct PEB_LDR_DATA {
     InMemoryOrderModuleList: LIST_ENTRY,
     InInitializationOrderModuleList: LIST_ENTRY,
 }
-#[no_mangle]
 #[repr(C)]
 pub struct PEB_FREE_BLOCK {
     Next: *mut PEB_FREE_BLOCK,
     Size: ULONG,
 }
-#[no_mangle]
 #[repr(C)]
 pub struct PEB {
     InheritedAddressSpace: bool,
@@ -139,48 +133,28 @@ pub struct PEB {
 
 
 //_PTR is pointer to the struct 
-#[no_mangle]
 pub type PEB_PTR = *mut PEB;
-#[no_mangle]
 pub type RTL_DRIVE_LETTER_CURDIR_PTR = *mut RTL_DRIVE_LETTER_CURDIR;
-#[no_mangle]
 pub type RTL_USER_PROCESS_PARAMETERS_PTR = *mut RTL_USER_PROCESS_PARAMETERS;
-#[no_mangle]
 pub type PUNICODE_STRING = *mut UNICODE_STRING;
-#[no_mangle]
 pub type LIST_ENTRY_PTR = *mut LIST_ENTRY;
-#[no_mangle]
 pub type RLIST_ENTRY_PTR = *mut LIST_ENTRY;
-#[no_mangle]
 pub type PEB_LDR_DATA_PTR = *mut PEB_LDR_DATA;
-#[no_mangle]
 pub type PEB_FREE_BLOCK_PTR = *mut PEB_FREE_BLOCK;
-#[no_mangle]
 pub type PEBLOCKROUTINE_PTR = unsafe fn(*mut c_void);
-#[no_mangle]
 pub type PVOID = *mut c_void;
-#[no_mangle]
 pub type PVOID_PTR = *mut PVOID;
-#[no_mangle]
 pub type USHORT = u16;
-#[no_mangle]
 pub type USHORT_PTR = *mut USHORT;
-#[no_mangle]
 pub type ULONG = u32;
-#[no_mangle]
 pub type ULONG_PTR = *mut ULONG;
-
-#[no_mangle]
 pub type HANDLE = PVOID; 
-#[no_mangle]
 pub type BOOLEAN = u8; // BYTE is typically represented as u8 in Rust
-#[no_mangle]
 pub type BOOLEAN_PTR = *mut BOOLEAN;
-//this Code crash ON linux
+pub type DWORD = u32;
 
+//this Code crash ON linux 
 
-
-#[no_mangle]
 pub fn IsBeingDebugged() -> bool {
     let mut peb: PEB_PTR;
     unsafe {
@@ -191,8 +165,58 @@ pub fn IsBeingDebugged() -> bool {
     }
 }
 
+//HANDLE OpenProcess(
+//    [in] DWORD dwDesiredAccess,
+//    [in] BOOL  bInheritHandle,
+//    [in] DWORD dwProcessId
+//  );
 
-fn main() {
-    let e = IsBeingDebugged();
-    println!("Hello, world! {}", e);
+pub fn PEB_ImageBaseAddress() -> usize {
+    let mut peb: PEB_PTR;
+    unsafe {
+        asm!("mov rax, qword ptr gs:[0x60]", out("rax") peb);
+    }
+    unsafe {
+        (*peb).ImageBaseAddress as usize
+    }
+}
+pub fn PEB_InheritedAddressSpace() -> bool {
+    let mut peb: PEB_PTR;
+    unsafe {
+        asm!("mov rax, qword ptr gs:[0x60]", out("rax") peb);
+    }
+    unsafe {
+        (*peb).InheritedAddressSpace
+    }
+}
+pub fn PEB_OSMajorVersion() -> u32 {
+    let mut peb: PEB_PTR;
+    unsafe {
+        asm!("mov rax, qword ptr gs:[0x60]", out("rax") peb);
+    }
+    unsafe {
+        (*peb).OSMajorVersion
+    }
+}
+pub fn PEB_OSMinorVersion() -> u32 {
+    let mut peb: PEB_PTR;
+    unsafe {
+        asm!("mov rax, qword ptr gs:[0x60]", out("rax") peb);
+    }
+    unsafe {
+        (*peb).OSMinorVersion
+    }
+}
+pub fn PEB_OSBuildNumber() -> u32 {
+    let mut peb: PEB_PTR;
+    unsafe {
+        asm!("mov rax, qword ptr gs:[0x60]", out("rax") peb);
+    }
+    unsafe {
+        (*peb).OSBuildNumber
+    }
+}
+mod windows_22H2_x64 {
+    //TEB->PEB->Ldr->InMemoryOrderLoadList->currentProgram->ntdll->kernel32.BaseDll
+
 }

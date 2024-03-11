@@ -1,4 +1,4 @@
-
+//https://www.ired.team/offensive-security/code-injection-process-injection/import-adress-table-iat-hooking
 //https://www.crow.rip/crows-nest/mal/dev/inject/syscalls/indirect-syscalls
 //https://www.nirsoft.net/kernel_struct/vista/TEB.html
 //https://klezvirus.github.io/RedTeaming/AV_Evasion/NoSysWhisper/
@@ -8,6 +8,13 @@
 //https://www.vergiliusproject.com/kernels/x64/Windows%2011
 //https://www.geoffchappell.com/studies/windows/km/ntoskrnl/inc/api/pebteb/peb/index.htm
 //http://undocumented.ntinternals.net/index.html?page=UserMode%2FStructures%2FRTL_DRIVE_LETTER_CURDIR.html
-fn main() {
-    println!("Hello, world!")
+#include <stdio.h>
+#include <Windows.h>
+#define OK 0
+#define ERROR 1
+
+int main() {
+    // Your code here
+    printf("Hello, World!\n");
+    return OK;
 }

@@ -17,7 +17,7 @@ cargo install rustfilt
 
 # Install GCC for Windows
 sudo apt-get install gcc-mingw-w64-x86-64 -y
-
+sudo apt-get install wine
 # Make scripts executable
 chmod +x ./package_app.sh
 chmod +x ./package_dll.sh
