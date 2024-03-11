@@ -14,7 +14,7 @@ mod windows;
 fn main() {
     let e: bool = windows::IsBeingDebugged();
     println!("ImageBaseAddress:0x{:x}", windows::PEB_ImageBaseAddress());
-    println!("Hello, world! ImageBaseAddress:{}" ,windows::PEB_ImageBaseAddress());
+    println!("ImageBaseAddress:{}" ,windows::PEB_ImageBaseAddress());
     println!("OSMajorVersion:{}", windows::PEB_OSMajorVersion());
     println!("OSMinorVersion:{}", windows::PEB_OSMinorVersion());
     println!("OSBuildNumber:{}", windows::PEB_OSBuildNumber());

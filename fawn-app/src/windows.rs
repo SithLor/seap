@@ -154,12 +154,19 @@ pub type BOOLEAN_PTR = *mut BOOLEAN;
 pub type DWORD = u32;
 
 //this Code crash ON linux 
-
+macro_rules! PEB_READ_ASM {
+    ($peb:expr) => {
+        unsafe {
+            asm!("mov rax, qword ptr gs:[0x60]", out("rax") $peb);
+        } 
+    };
+}
 pub fn IsBeingDebugged() -> bool {
     let mut peb: PEB_PTR;
-    unsafe {
-        asm!("mov rax, qword ptr gs:[0x60]", out("rax") peb);
-    }
+    //unsafe {
+    //    asm!("mov rax, qword ptr gs:[0x60]", out("rax") peb);
+    //}
+    PEB_READ_ASM!(peb);
     unsafe {
         (*peb).BeingDebugged
     }
@@ -173,45 +180,50 @@ pub fn IsBeingDebugged() -> bool {
 
 pub fn PEB_ImageBaseAddress() -> usize {
     let mut peb: PEB_PTR;
-    unsafe {
-        asm!("mov rax, qword ptr gs:[0x60]", out("rax") peb);
-    }
+    //unsafe {
+    //    asm!("mov rax, qword ptr gs:[0x60]", out("rax") peb);
+    //}
+    PEB_READ_ASM!(peb);
     unsafe {
         (*peb).ImageBaseAddress as usize
     }
 }
 pub fn PEB_InheritedAddressSpace() -> bool {
     let mut peb: PEB_PTR;
-    unsafe {
-        asm!("mov rax, qword ptr gs:[0x60]", out("rax") peb);
-    }
+    //unsafe {
+    //    asm!("mov rax, qword ptr gs:[0x60]", out("rax") peb);
+    //}
+    PEB_READ_ASM!(peb);
     unsafe {
         (*peb).InheritedAddressSpace
     }
 }
 pub fn PEB_OSMajorVersion() -> u32 {
     let mut peb: PEB_PTR;
-    unsafe {
-        asm!("mov rax, qword ptr gs:[0x60]", out("rax") peb);
-    }
+    //unsafe {
+    //    asm!("mov rax, qword ptr gs:[0x60]", out("rax") peb);
+    //}
+    PEB_READ_ASM!(peb);
     unsafe {
         (*peb).OSMajorVersion
     }
 }
 pub fn PEB_OSMinorVersion() -> u32 {
     let mut peb: PEB_PTR;
-    unsafe {
-        asm!("mov rax, qword ptr gs:[0x60]", out("rax") peb);
-    }
+    //unsafe {
+    //    asm!("mov rax, qword ptr gs:[0x60]", out("rax") peb);
+    //}
+    PEB_READ_ASM!(peb);
     unsafe {
         (*peb).OSMinorVersion
     }
 }
 pub fn PEB_OSBuildNumber() -> u32 {
     let mut peb: PEB_PTR;
-    unsafe {
-        asm!("mov rax, qword ptr gs:[0x60]", out("rax") peb);
-    }
+    //unsafe {
+    //    asm!("mov rax, qword ptr gs:[0x60]", out("rax") peb);
+    //}
+    PEB_READ_ASM!(peb);
     unsafe {
         (*peb).OSBuildNumber
     }
