@@ -5,7 +5,7 @@
 //https://github.dev/microsoft/windows-rs/blob/master/crates/libs/windows/src/Windows/System/UserProfile/mod.rs
 //https://microsoft.github.io/windows-docs-rs/doc/windows/Win32/System/Shutdown/fn.ExitWindowsEx.html
 
-
+//-C opt-level=3 overflow-checks=false strip=debuginfo
 pub mod nt_custom {
 
     use std::arch::asm;
