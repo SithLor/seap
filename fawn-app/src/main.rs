@@ -9,8 +9,10 @@
 //https://www.geoffchappell.com/studies/windows/km/ntoskrnl/inc/api/pebteb/peb/index.htm
 //http://undocumented.ntinternals.net/index.html?page=UserMode%2FStructures%2FRTL_DRIVE_LETTER_CURDIR.html
 
-mod asm;
-mod windows_api;
+//https://www.virustotal.com/gui/file/ef1d16f11b184f9017bef21db833313c427f1e10dd0adf37b879c2e2f71548d5/behavior
+
+
+mod win;
 fn main() {
     //let e: bool = windows_api::IsBeingDebugged();
     //println!("ImageBaseAddress:0x{:x}", windows::PEB_ImageBaseAddress());
@@ -20,6 +22,8 @@ fn main() {
     //println!("OSBuildNumber:{}", windows::PEB_OSBuildNumber());
     //println!("InheritedAddressSpace:{}", windows::PEB_InheritedAddressSpace());
     //println!("BeingDebugged:{}", e);
-    asm::crash();
-
+    println!("Hello, world!");
+    let e: bool = win::ms_InitiateSystemShutdownA();
+    println!("d")
+    //panic!("crash");
 }
