@@ -9,14 +9,17 @@
 //https://www.geoffchappell.com/studies/windows/km/ntoskrnl/inc/api/pebteb/peb/index.htm
 //http://undocumented.ntinternals.net/index.html?page=UserMode%2FStructures%2FRTL_DRIVE_LETTER_CURDIR.html
 
-
-mod windows;
+mod asm;
+mod windows_api;
 fn main() {
-    let e: bool = windows::IsBeingDebugged();
-    println!("ImageBaseAddress:0x{:x}", windows::PEB_ImageBaseAddress());
-    println!("ImageBaseAddress:{}" ,windows::PEB_ImageBaseAddress());
-    println!("OSMajorVersion:{}", windows::PEB_OSMajorVersion());
-    println!("OSMinorVersion:{}", windows::PEB_OSMinorVersion());
-    println!("OSBuildNumber:{}", windows::PEB_OSBuildNumber());
-    println!("InheritedAddressSpace:{}", windows::PEB_InheritedAddressSpace());
+    //let e: bool = windows_api::IsBeingDebugged();
+    //println!("ImageBaseAddress:0x{:x}", windows::PEB_ImageBaseAddress());
+    //println!("ImageBaseAddress:{}" ,windows::PEB_ImageBaseAddress());
+    //println!("OSMajorVersion:{}", windows::PEB_OSMajorVersion());
+    //println!("OSMinorVersion:{}", windows::PEB_OSMinorVersion());
+    //println!("OSBuildNumber:{}", windows::PEB_OSBuildNumber());
+    //println!("InheritedAddressSpace:{}", windows::PEB_InheritedAddressSpace());
+    //println!("BeingDebugged:{}", e);
+    asm::crash();
+
 }

@@ -15,6 +15,7 @@ fn findprime(_min:u64, _max:u64) -> Vec<u64> {
     }
     primes
 }
+
 fn writefile(path:String,_primes: Vec<u64>) {
     use std::fs::File;
     use std::io::Write;
