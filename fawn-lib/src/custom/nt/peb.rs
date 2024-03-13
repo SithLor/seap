@@ -149,12 +149,12 @@ macro_rules! PEB_READ_ASM {
         }
     };
 }
-
 pub fn InheritedAddressSpace() -> bool {
     let mut peb: PEB_PTR;
     PEB_READ_ASM!(peb);
     unsafe { (*peb).InheritedAddressSpace }
 }
+
 pub fn ReadImageFileExecOptions() -> bool {
     let mut peb: PEB_PTR;
     PEB_READ_ASM!(peb);
