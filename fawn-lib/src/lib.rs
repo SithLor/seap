@@ -34,7 +34,7 @@ pub mod ms;
 pub mod custom;
 pub mod helper;
 pub mod error;
-
+pub mod dectect;
 #[cfg(test)]
 mod tests {
     use super::*;

@@ -10,5 +10,7 @@ pub fn handle_option_bool(s: Option<bool>) -> bool {
         None => false,
     }
 }
-
+pub fn ptr_const_i8_to_ptr_mut_u16(ptr: *const i8) -> *mut u16 {
+    ptr as *mut u16
+}
 

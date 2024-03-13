@@ -150,56 +150,126 @@ macro_rules! PEB_READ_ASM {
 }
 pub fn IsBeingDebugged() -> bool {
     let mut peb: PEB_PTR;
-    //unsafe {
-    //    asm!("mov rax, qword ptr gs:[0x60]", out("rax") peb);
-    //}
     PEB_READ_ASM!(peb);
     unsafe { (*peb).BeingDebugged }
 }
-
-//HANDLE OpenProcess(
-//    [in] DWORD dwDesiredAccess,
-//    [in] BOOL  bInheritHandle,
-//    [in] DWORD dwProcessId
-//  );
-
-pub fn PEB_ImageBaseAddress() -> usize {
+pub fn ImageBaseAddress() -> usize {
     let mut peb: PEB_PTR;
-    //unsafe {
-    //    asm!("mov rax, qword ptr gs:[0x60]", out("rax") peb);
-    //}
     PEB_READ_ASM!(peb);
     unsafe { (*peb).ImageBaseAddress as usize }
 }
-pub fn PEB_InheritedAddressSpace() -> bool {
+pub fn IsInheritedAddressSpace() -> bool {
     let mut peb: PEB_PTR;
-    //unsafe {
-    //    asm!("mov rax, qword ptr gs:[0x60]", out("rax") peb);
-    //}
+
     PEB_READ_ASM!(peb);
     unsafe { (*peb).InheritedAddressSpace }
 }
-pub fn PEB_OSMajorVersion() -> u32 {
+
+
+pub fn HeapDeCommitTotalFreeThreshold() -> u32 {
     let mut peb: PEB_PTR;
-    //unsafe {
-    //    asm!("mov rax, qword ptr gs:[0x60]", out("rax") peb);
-    //}
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).HeapDeCommitTotalFreeThreshold }
+}
+pub fn HeapDeCommitFreeBlockThreshold() -> u32 {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).HeapDeCommitFreeBlockThreshold }
+}
+pub fn NumberOfHeaps() -> u32 {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).NumberOfHeaps }
+}
+pub fn MaximumNumberOfHeaps() -> u32 {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).MaximumNumberOfHeaps }
+}
+
+fn ProcessHeaps() -> PVOID_PTR {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).ProcessHeaps }
+}
+fn GdiSharedHandleTable() -> PVOID {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).GdiSharedHandleTable }
+}
+fn ProcessStarterHelper() -> PVOID {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).ProcessStarterHelper }
+}
+fn GdiDCAttributeList() -> PVOID {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).GdiDCAttributeList }
+}
+fn LoaderLock() -> PVOID {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).LoaderLock }
+}
+
+pub fn OSMajorVersion() -> u32 {
+    let mut peb: PEB_PTR;
+
     PEB_READ_ASM!(peb);
     unsafe { (*peb).OSMajorVersion }
 }
-pub fn PEB_OSMinorVersion() -> u32 {
+pub fn OSMinorVersion() -> u32 {
     let mut peb: PEB_PTR;
-    //unsafe {
-    //    asm!("mov rax, qword ptr gs:[0x60]", out("rax") peb);
-    //}
     PEB_READ_ASM!(peb);
     unsafe { (*peb).OSMinorVersion }
 }
-pub fn PEB_OSBuildNumber() -> u32 {
+pub fn OSBuildNumber() -> u32 {
     let mut peb: PEB_PTR;
     //unsafe {
     //    asm!("mov rax, qword ptr gs:[0x60]", out("rax") peb);
     //}
     PEB_READ_ASM!(peb);
     unsafe { (*peb).OSBuildNumber }
+}
+pub fn OSPlatformId() -> u32 {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).OSPlatformId }
+}
+pub fn ImageSubSystem() -> u32 {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).ImageSubSystem }
+}
+pub fn ImageSubSystemMajorVersion() -> u32 {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).ImageSubSystemMajorVersion }
+}
+pub fn ImageSubSystemMinorVersion() -> u32 {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).ImageSubSystemMinorVersion }
+}
+fn GdiHandleBuffer(){}
+pub fn PostProcessInitRoutine() -> u32 {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).PostProcessInitRoutine }
+}
+pub fn TlsExpansionBitmap() -> u32 {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).TlsExpansionBitmap }
+}
+fn TlsExpansionBitmapBits() -> [u8; 128] {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).TlsExpansionBitmapBits }
+}
+pub fn SessionId() -> u32 {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).SessionId }
 }
