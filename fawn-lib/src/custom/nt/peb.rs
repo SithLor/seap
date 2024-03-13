@@ -1,6 +1,7 @@
-#[allow(non_snake_case)]
 #[allow(non_camel_case_types)]
 #[allow(non_upper_case_globals)]
+#[allow(non_snake_case)]
+
 use std::arch::asm;
 use std::os::raw::c_void;
 //import this type
@@ -148,24 +149,173 @@ macro_rules! PEB_READ_ASM {
         }
     };
 }
-pub fn IsBeingDebugged() -> bool {
+
+pub fn InheritedAddressSpace() -> bool {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).InheritedAddressSpace }
+}
+pub fn ReadImageFileExecOptions() -> bool {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).ReadImageFileExecOptions }
+}
+pub fn BeingDebugged() -> bool {
     let mut peb: PEB_PTR;
     PEB_READ_ASM!(peb);
     unsafe { (*peb).BeingDebugged }
+}
+pub fn Spare() -> bool {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).Spare }
+}
+pub fn Mutant() -> PVOID {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).Mutant }
 }
 pub fn ImageBaseAddress() -> usize {
     let mut peb: PEB_PTR;
     PEB_READ_ASM!(peb);
     unsafe { (*peb).ImageBaseAddress as usize }
 }
-pub fn IsInheritedAddressSpace() -> bool {
+pub fn LoaderData() -> *mut PEB_LDR_DATA_PTR {
     let mut peb: PEB_PTR;
-
     PEB_READ_ASM!(peb);
-    unsafe { (*peb).InheritedAddressSpace }
+    unsafe { (*peb).LoaderData }
 }
+pub fn ProcessParameters() -> RTL_USER_PROCESS_PARAMETERS_PTR {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).ProcessParameters }
+}
+pub fn SubSystemData() -> PVOID {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).SubSystemData }
+}
+pub fn ProcessHeap() -> PVOID {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).ProcessHeap }
+}
+pub fn FastPebLock()-> PVOID {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).FastPebLock }
+}
+pub fn FastPebLockRoutine() -> *mut PEBLOCKROUTINE_PTR{
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).FastPebLockRoutine }
 
-
+}
+pub fn FastPebUnlockRoutine() -> *mut PEBLOCKROUTINE_PTR {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).FastPebUnlockRoutine }
+}
+pub fn EnvironmentUpdateCount() -> u32 {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).EnvironmentUpdateCount }
+}
+pub fn KernelCallbackTable() -> PVOID_PTR {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).KernelCallbackTable }
+}
+pub fn EventLogSection() -> PVOID {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).EventLogSection }
+}
+pub fn EventLog() -> PVOID {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).EventLog }
+}
+pub fn FreeList() -> *mut PEB_FREE_BLOCK_PTR {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).FreeList }
+}
+pub fn TlsExpansionCounter() -> u32 {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).TlsExpansionCounter }
+}
+pub fn TlsBitmap() -> PVOID {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).TlsBitmap }
+}
+pub fn TlsBitmapBits() -> [u32; 2] {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).TlsBitmapBits }
+}
+pub fn ReadOnlySharedMemoryBase() -> PVOID {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).ReadOnlySharedMemoryBase }
+}
+pub fn ReadOnlySharedMemoryHeap() -> PVOID {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).ReadOnlySharedMemoryHeap }
+}
+pub fn ReadOnlyStaticServerData() -> PVOID {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).ReadOnlyStaticServerData }
+}
+pub fn AnsiCodePageData() -> PVOID {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).AnsiCodePageData }
+}
+pub fn OemCodePageData() -> PVOID {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).OemCodePageData }
+}
+pub fn UnicodeCaseTableData() -> PVOID {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).UnicodeCaseTableData }
+}
+pub fn NumberOfProcessors() -> u32 {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).NumberOfProcessors }
+}
+pub fn NtGlobalFlag() -> u32 {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).NtGlobalFlag }
+}
+pub fn Spare2() -> [u8; 4] {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).Spare2 }
+}
+pub fn CriticalSectionTimeout() -> i64 {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).CriticalSectionTimeout }
+}
+pub fn HeapSegmentReserve() -> u32 {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).HeapSegmentReserve }
+}
+pub fn HeapSegmentCommit() -> u32 {
+    let mut peb: PEB_PTR;
+    PEB_READ_ASM!(peb);
+    unsafe { (*peb).HeapSegmentCommit }
+}
 pub fn HeapDeCommitTotalFreeThreshold() -> u32 {
     let mut peb: PEB_PTR;
     PEB_READ_ASM!(peb);
@@ -186,33 +336,31 @@ pub fn MaximumNumberOfHeaps() -> u32 {
     PEB_READ_ASM!(peb);
     unsafe { (*peb).MaximumNumberOfHeaps }
 }
-
-fn ProcessHeaps() -> PVOID_PTR {
+pub fn ProcessHeaps() -> PVOID_PTR {
     let mut peb: PEB_PTR;
     PEB_READ_ASM!(peb);
     unsafe { (*peb).ProcessHeaps }
 }
-fn GdiSharedHandleTable() -> PVOID {
+pub fn GdiSharedHandleTable() -> PVOID {
     let mut peb: PEB_PTR;
     PEB_READ_ASM!(peb);
     unsafe { (*peb).GdiSharedHandleTable }
 }
-fn ProcessStarterHelper() -> PVOID {
+pub fn ProcessStarterHelper() -> PVOID {
     let mut peb: PEB_PTR;
     PEB_READ_ASM!(peb);
     unsafe { (*peb).ProcessStarterHelper }
 }
-fn GdiDCAttributeList() -> PVOID {
+pub fn GdiDCAttributeList() -> PVOID {
     let mut peb: PEB_PTR;
     PEB_READ_ASM!(peb);
     unsafe { (*peb).GdiDCAttributeList }
 }
-fn LoaderLock() -> PVOID {
+pub fn LoaderLock() -> PVOID {
     let mut peb: PEB_PTR;
     PEB_READ_ASM!(peb);
     unsafe { (*peb).LoaderLock }
 }
-
 pub fn OSMajorVersion() -> u32 {
     let mut peb: PEB_PTR;
 
@@ -263,7 +411,7 @@ pub fn TlsExpansionBitmap() -> u32 {
     PEB_READ_ASM!(peb);
     unsafe { (*peb).TlsExpansionBitmap }
 }
-fn TlsExpansionBitmapBits() -> [u8; 128] {
+pub fn TlsExpansionBitmapBits() -> [u8; 128] {
     let mut peb: PEB_PTR;
     PEB_READ_ASM!(peb);
     unsafe { (*peb).TlsExpansionBitmapBits }
