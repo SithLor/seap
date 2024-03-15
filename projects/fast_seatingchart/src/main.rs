@@ -1,5 +1,5 @@
 //use rustup 2023 
-const INPUT_FILE: &str = "./src/people.txt";
+const INPUT_FILE: &str = "./src/people.m.txt";
 const OUTPUT_FILE: &str = "./src/seating_chart.txt";
 
 use rayon::prelude::*;

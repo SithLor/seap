@@ -23,7 +23,7 @@ chmod +x ./package_app.sh
 chmod +x ./package_dll.sh
 
 
-
+rustc -Z tune-cpu=machine -C opt-level=z -C overflow-checks=true -C strip=debuginfo -C target-cpu=native
 # Debug Commands 
 ```sh 
 cargo rustc -C opt-level=3
