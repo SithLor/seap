@@ -10,7 +10,7 @@ use std::arch::x86_64::*;
 const MAX_ITERATIONS: u32 = 5000; // or any other value you want
 // Function to map the number of iterations i to a grey value between 0 (black)
 // and 255 (white).
-fn get_color(i: u32, max_iterations: u32) -> image::Rgb<u8> {
+fn _get_color(i: u32, max_iterations: u32) -> image::Rgb<u8> {
     if i > max_iterations {
         return image::Rgb([255, 255, 255]);
     }
@@ -20,6 +20,28 @@ fn get_color(i: u32, max_iterations: u32) -> image::Rgb<u8> {
     }
     let idx = (((i as f32) / (max_iterations as f32)) * 255.0).round() as u8;
     return image::Rgb([idx, idx, idx]);
+}
+fn get_color(i: u32, max_iterations: u32) -> image::Rgb<u8> {
+    if i > max_iterations {
+        return image::Rgb([0, 0, 0]); // You can change this to any color for values beyond max_iterations
+    }
+
+    let r = ((i as f32) / (max_iterations as f32) * 6.0).clamp(0.0, 6.0);
+    let fract = r - r.floor();
+    let (mut p, mut q, mut t) = (0.0, 1.0 - fract, fract);
+    
+    if r >= 6.0 { p = 0.0; q = 0.0; t = 0.0; }
+    else if r >= 5.0 { p = 1.0; q = 0.0; }
+    else if r >= 4.0 { p = 1.0; t = 0.0; }
+    else if r >= 3.0 { p = 0.0; t = 0.0; }
+    else if r >= 2.0 { q = 0.0; }
+    else if r >= 1.0 { p = 0.0; }
+
+    let red = ((p * 255.0) as u8).min(255);
+    let green = ((q * 255.0) as u8).min(255);
+    let blue = ((t * 255.0) as u8).min(255);
+
+    image::Rgb([red, green, blue])
 }
 
 // Function to run a Mandelbrot rendering algorithm and measure its execution
@@ -190,9 +212,9 @@ fn avxrayon(w: u32, h: u32) -> image::RgbImage {
 
 
 fn main() {
-    let width = 1920*2;
-    let height = 1080*2;
+    let width = 4024;
+    let height = 4024;
     let save_image = false;
-    //runalgo("avxrayon", width, height, save_image, avxrayon);
+    runalgo("avxrayon", width, height, save_image, avxrayon);
     runalgo("naive", width, height, save_image, naive);
 }
