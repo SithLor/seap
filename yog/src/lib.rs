@@ -1,6 +1,6 @@
 pub mod link;
 pub mod color;
-
+pub mod mal;
 // rust marco like CSS {} retunn "<style>...</style>"
 // rust marco like HTML {} retunn "<html>...</html>"
 // rust marco like JS {} retunn "<script>...</script>"

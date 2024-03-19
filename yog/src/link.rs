@@ -26,9 +26,9 @@ impl Link {
         };
         let mut host_port_path = parts.next().unwrap().split("/");
         let host_port = host_port_path.next().unwrap();
-        let mut host_port = host_port.split(":");
-        let host = host_port.next().unwrap().to_string();
-        let port = match host_port.next() {
+        let mut host_port: std::str::Split<'_, &str> = host_port.split(":");
+        let host: String = host_port.next().unwrap().to_string();
+        let port: u16 = match host_port.next() {
             Some(port) => port.parse().unwrap(),
             None => match protocol {
                 Protocol::Https => 443,
