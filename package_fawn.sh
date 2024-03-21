@@ -21,21 +21,28 @@ function test_linux(){
     cd fawn-app
     cargo build --target x86_64-pc-windows-gnu -j 64
     cd ..
+    echo " "
+    echo " "
+    echo " "
+    echo " "
+    echo " "
+    echo " "
+    echo " "
+    
     wine $APP_RELEASE
 }
 
 # check 
-## ask $1 is os type then ask $2 is build type if on wsl open windows terminal
-if [ "$1" == "wsl" ]; then
-    if [ "$2" == "release" ]; then
-        build
-    else
-        test_linux
-    fi
+## ask $1 if it is empty and check for test build
+if [ -z "$1" ]
+then
+    echo "No argument supplied"
+    build
+    clear
+elif [ "$1" == "test" ]
+then
+    test_linux
 else
-    if [ "$2" == "release" ]; then
-        build
-    else
-        test_linux
-    fi
+    echo "Invalid argument"
+    clear
 fi

@@ -18,6 +18,7 @@ macro_rules! Text {
         concat!($(stringify!($x), "\n",)*)
     };
 }
+
 pub fn asm_crash() {
     unsafe {
         use std::arch::asm;
