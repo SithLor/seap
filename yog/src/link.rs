@@ -13,6 +13,19 @@ struct Link {
     port: u16,
     path: String,
 }
+pub trait LinkTrait {
+    fn from_str(s: &str) -> Self;
+    fn new(protocol: Protocol, host: &str, port: u16, path: &str) -> Self;
+    fn set_protocol(&mut self, protocol: Protocol);
+    fn set_host(&mut self, host: &str);
+    fn set_port(&mut self, port: u16);
+    fn set_path(&mut self, path: &str);
+    fn get_protocol(&self) -> &Protocol;
+    fn get_host(&self) -> &str;
+    fn get_port(&self) -> u16;
+    fn get_path(&self) -> &str;
+    fn to_string(&self) -> String;
+}
 // protocol://host:port/path to Link { protocol, host, port, path }
 impl Link {
     pub fn from(s: &str) -> Self {
