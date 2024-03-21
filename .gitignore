@@ -14,3 +14,5 @@ Cargo.lock
 *.pdb
 
 #OUT/
+sig.txt
+./BINS/fawn_app/fawn_app.exe
