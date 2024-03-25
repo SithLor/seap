@@ -17,7 +17,5 @@ pub fn initiate_system_shutdown_a() -> bool {
     let result: Result<(), windows::core::Error> = unsafe { InitiateSystemShutdownA(None, None, 0, true, true) };
     result.is_ok()
 }
-
-
-
+pub fn Beep(){}
 

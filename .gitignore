@@ -16,3 +16,10 @@ Cargo.lock
 #OUT/
 sig.txt
 ./BINS/fawn_app/fawn_app.exe
+*.objdump.att.asm
+*.objdump.fileheader
+*.objdump.privatefileheader
+*.objdump.relocationtable
+*.objdump.symboltable
+*.objdump.dynamicrelocationtable
+*.objdump.dynamicsymboltable

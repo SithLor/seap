@@ -2,6 +2,8 @@
     "java.debug.settings.onBuildFailureProceed": true,
     "rust-analyzer.linkedProjects": [
         "./fawn-lib/Cargo.toml",
-        "./fawn-app/Cargo.toml"
+        "./fawn-app/Cargo.toml",
+        "./juke/Cargo.toml",
+        "./juke_runner/Cargo.toml"
     ]
 }

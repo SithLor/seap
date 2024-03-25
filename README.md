@@ -4,6 +4,13 @@ A library and application for various things like macros and more.
 **WARNING:** This project involves the use of NTAPI (Windows Native API), which can be unstable and potentially risky. Please use caution when running or modifying this code. We are not responsible for any damage or issues that may arise from its use.
 
 ## Installation
+
+if on Github codespace run this 
+
+```sh
+mkdir -p ~/.config/fish/conf.d/
+```
+
 ```sh 
 # Install Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
