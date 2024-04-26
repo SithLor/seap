@@ -6,7 +6,7 @@ struct Bin {
     file_data: Vec<u8>,
 }
 fn hash_file(file_data: &[u8]) -> String {
-    let mut hasher = Sha3_256::new();
+    let mut hasher: sha3::digest::core_api::CoreWrapper<sha3::Sha3_256Core> = Sha3_256::new();
     hasher.update(file_data);
     let result: sha3::digest::generic_array::GenericArray<
                     u8, 
@@ -24,6 +24,35 @@ fn hash_file(file_data: &[u8]) -> String {
                     sha3::digest::consts::B0>> = hasher.finalize();
     format!("{:x}", result)
 }
+fn _hash_file(file_data: &[u8]) -> String {
+    use sha3::digest::generic_array::GenericArray;
+    use sha3::digest::typenum::UInt;
+    use sha3::digest::typenum::UTerm;
+    use sha3::digest::consts::B0;
+    use sha3::digest::consts::B1;
+    let mut hasher = Sha3_256::new();
+    hasher.update(file_data);
+    let result: 
+        GenericArray<
+            u8,
+             UInt<
+                UInt<
+                    UInt<
+                        UInt<
+                            UInt<
+                                UInt<
+                                    UTerm,
+                                    B1
+                                >, 
+                                B0
+                            >, B0>, 
+                        B0>, 
+                    B0>, 
+            B0>
+        > = hasher.finalize();
+    format!("{:x}", result)
+}
+
 fn read_file(file_path: &str) -> Result<Bin, std::io::Error> {
     let file_data = std::fs::read(file_path)?;
     let file_size = file_data.len() as u64;
