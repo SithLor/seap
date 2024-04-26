@@ -8,7 +8,20 @@ struct Bin {
 fn hash_file(file_data: &[u8]) -> String {
     let mut hasher = Sha3_256::new();
     hasher.update(file_data);
-    let result = hasher.finalize();
+    let result: sha3::digest::generic_array::GenericArray<
+                    u8, 
+                    sha3::digest::typenum::UInt<
+                        sha3::digest::typenum::UInt<
+                            sha3::digest::typenum::UInt<
+                                sha3::digest::typenum::UInt<
+                                    sha3::digest::typenum::UInt<
+                                        sha3::digest::typenum::UInt<
+                                            sha3::digest::typenum::UTerm,sha3::digest::consts::B1>, 
+                                    sha3::digest::consts::B0>, 
+                                sha3::digest::consts::B0>,
+                            sha3::digest::consts::B0>,
+                        sha3::digest::consts::B0>,
+                    sha3::digest::consts::B0>> = hasher.finalize();
     format!("{:x}", result)
 }
 fn read_file(file_path: &str) -> Result<Bin, std::io::Error> {
