@@ -4,6 +4,8 @@
         "./fawn-lib/Cargo.toml",
         "./fawn-app/Cargo.toml",
         "./juke/Cargo.toml",
-        "./juke_runner/Cargo.toml"
+        "./juke_runner/Cargo.toml",
+        "./binhide/Cargo.toml",
+        "./binhide_lib/Cargo.toml"
     ]
 }

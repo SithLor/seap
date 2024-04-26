@@ -52,18 +52,16 @@ fn prime_factors(n: u64, spaces: String) -> String {
 }
 
 
-pub fn boom(){
-    unsafe{std::arch::asm!("int3")}
-}
+pub mod java;
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
-    fn test_remove_char_at(){
-        assert_eq!(strings::remove_char_at2("hello",vec![1,2]),"ho");
-        assert_eq!(strings::remove_char_at2("hello",vec![0,1,2,3,4]),"");
-        assert_eq!(strings::remove_char_at2("hello",vec![0,4]),"ell");
+    fn ArrayList_test(){
+        let mut list = java::ArrayList::<i32>::new();
+        list.add(1);
+        list.addFirst(1)
     }
 }

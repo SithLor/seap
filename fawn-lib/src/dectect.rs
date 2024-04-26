@@ -11,10 +11,13 @@ pub fn is_wine() -> bool {
     if mode == 1 {
         return std::env::var("WINELOADERNOEXEC").is_ok();
     } else {
+        // Find The module handle of kernel32.dll
         let e: Result<HMODULE, Error> = unsafe {
             GetModuleHandleW(w!("kernel32.dll"))
         }; 
+        // Check if the module handle is valid
         let h: HMODULE = e.unwrap();
+
         let wine_get_unix_file_name = unsafe {
             GetProcAddress(h, s!("wine_get_unix_file_name"))
         };
