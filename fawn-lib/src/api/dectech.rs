@@ -1,16 +1,25 @@
 
-use windows::Win32::System::LibraryLoader::GetModuleHandleW;
-use windows::Win32::System::LibraryLoader::GetProcAddress;
-use windows::Win32::Foundation::HMODULE;
-use windows::core::Error;
-use windows::core::w;
-use windows::core::s;
 
-pub fn is_wine() -> bool {
-    let mode: i32 = 0;
+
+pub fn has_java() -> bool {
+    use std::env;
+    let java_home: Result<String, env::VarError> = env::var("JAVA_HOME");
+    return java_home.is_ok();
+}
+
+pub fn is_wine(mode:i32) -> bool {
+    let mode: i32 = mode;
     if mode == 1 {
-        return std::env::var("WINELOADERNOEXEC").is_ok();
+        use std::env;
+        return env::var("WINELOADERNOEXEC").is_ok();
     } else {
+
+        use windows::Win32::System::LibraryLoader::GetModuleHandleW;
+        use windows::Win32::System::LibraryLoader::GetProcAddress;
+        use windows::Win32::Foundation::HMODULE;
+        use windows::core::Error;
+        use windows::core::w;
+        use windows::core::s;
         // Find The module handle of kernel32.dll
         let e: Result<HMODULE, Error> = unsafe {
             GetModuleHandleW(w!("kernel32.dll"))

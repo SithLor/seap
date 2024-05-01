@@ -11,7 +11,11 @@ if on Github codespace run this
 mkdir -p ~/.config/fish/conf.d/
 ```
 
+
 ```sh 
+sudo apt update 
+sudo apt upgrade
+sudo apt install wine64
 # Install Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
@@ -28,14 +32,23 @@ sudo apt-get install wine
 sudo apt install binutils 
 
 # Make scripts executable
-chmod +x ./package_app.sh
-chmod +x ./package_dll.sh
+chmod +x ./package_fawn.sh
+```
 
 
-rustc -Z tune-cpu=machine -C opt-level=z -C overflow-checks=true -C strip=debuginfo -C target-cpu=native
 # Debug Commands 
+
+this force rustc to vary fast
 ```sh 
+cargo rustc --release -- -Z tune-cpu=machine -C opt-level=3 -C overflow-checks=true -C strip=debuginfo -C target-cpu=native
+```
+
+```sh 
+rustc -Z tune-cpu=machine -C opt-level=3 -C overflow-checks=true -C strip=debuginfo -C target-cpu=native
 cargo rustc -C opt-level=3
+
+
+
 rustup default nightly
 rustup default stable
 rustc FILE --emit llvm-bc
@@ -49,6 +62,7 @@ rustc FILE --emit dep-info
 ```
 
 # Nice Rust Macro 
+
 ```rust 
 #[macro_export]
 macro_rules! called_from {

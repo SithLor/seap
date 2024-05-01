@@ -24,34 +24,6 @@ fn hash_file(file_data: &[u8]) -> String {
                     sha3::digest::consts::B0>> = hasher.finalize();
     format!("{:x}", result)
 }
-fn _hash_file(file_data: &[u8]) -> String {
-    use sha3::digest::generic_array::GenericArray;
-    use sha3::digest::typenum::UInt;
-    use sha3::digest::typenum::UTerm;
-    use sha3::digest::consts::B0;
-    use sha3::digest::consts::B1;
-    let mut hasher = Sha3_256::new();
-    hasher.update(file_data);
-    let result: 
-        GenericArray<
-            u8,
-             UInt<
-                UInt<
-                    UInt<
-                        UInt<
-                            UInt<
-                                UInt<
-                                    UTerm,
-                                    B1
-                                >, 
-                                B0
-                            >, B0>, 
-                        B0>, 
-                    B0>, 
-            B0>
-        > = hasher.finalize();
-    format!("{:x}", result)
-}
 
 fn read_file(file_path: &str) -> Result<Bin, std::io::Error> {
     let file_data = std::fs::read(file_path)?;
@@ -87,6 +59,44 @@ fn write_file(file_path: &str, bin: &Bin) -> Result<(), std::io::Error> {
 #[cfg(test)]
 mod tests {
     use super::*;
-
+    fn test_read_file() {
+        let bin = read_file("test.txt").unwrap();
+        assert_eq!(bin.file_size, 5);
+        assert_eq!(bin.hash, "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3");
+        assert_eq!(bin.file_data, vec![104, 101, 108, 108, 111]);
+    }
+    fn test_write_file() {
+        let bin = Bin {
+            file_size: 5,
+            hash: "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3".to_string(),
+            file_data: vec![104, 101, 108, 108, 111],
+        };
+        write_file("test.txt", &bin).unwrap();
+        let bin = read_file("test.txt").unwrap();
+        assert_eq!(bin.file_size, 5);
+        assert_eq!(bin.hash, "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3");
+        assert_eq!(bin.file_data, vec![104, 101, 108, 108, 111]);
+    }
+    fn test_bin_struct_to_bytes() {
+        let bin = Bin {
+            file_size: 5,
+            hash: "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3".to_string(),
+            file_data: vec![104, 101, 108, 108, 111],
+        };
+        let bytes = bin_struct_to_bytes(&bin);
+        assert_eq!(bytes, vec![5, 0, 0, 0, 0, 0, 0, 0, 97, 57, 52, 97, 56, 102, 101, 53, 99, 99, 98, 49, 57, 98, 97, 54, 49, 99, 52, 99, 48, 56, 55, 51, 100, 51, 57, 49, 101, 57, 56, 55, 57, 56, 50, 102, 98, 98, 100, 51, 104, 101, 108, 108, 111]);
+    }
+    fn test_bytes_to_bin_struct() {
+        let bytes = vec![5, 0, 0, 0, 0, 0, 0, 0, 97, 57, 52, 97, 56, 102, 101, 53, 99, 99, 98, 49, 57, 98, 97, 54, 49, 99, 52, 99, 48, 56, 55, 51, 100, 51, 57, 49, 101, 57, 56, 55, 57, 56, 50, 102, 98, 98, 100, 51, 104, 101, 108, 108, 111];
+        let bin = bytes_to_bin_struct(&bytes);
+        assert_eq!(bin.file_size, 5);
+        assert_eq!(bin.hash, "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3");
+        assert_eq!(bin.file_data, vec![104, 101, 108, 108, 111]);
+    }
+    fn test_hash_file() {
+        let hash = hash_file(&vec![104, 101, 108, 108, 111]);
+        assert_eq!(hash, "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3");
+    }
+    
     
 }

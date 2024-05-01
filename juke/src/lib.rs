@@ -30,26 +30,7 @@ pub mod strings {
 }
 
 
-pub fn prime_factor_solver(n: u64) -> String {
-    prime_factors(n, "".to_string())
-}
 
-fn prime_factors(n: u64, spaces: String) -> String {
-    for i in 2..=n {
-        if n % i == 0 {
-            let quotient = n / i;
-            if quotient == 1 {
-                return format!("{}{} {}", spaces, i, quotient);
-            } else {
-                let factor_string = format!("{}{} {}", spaces, i, quotient);
-                let next_spaces = format!("{}  ", spaces);
-                let quotient_string = prime_factors(quotient, next_spaces);
-                return format!("{}\n{}", factor_string, quotient_string);
-            }
-        }
-    }
-    format!("{}{}", spaces, n)
-}
 
 
 pub mod java;

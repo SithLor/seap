@@ -1,0 +1,4 @@
+code_fast(): 97ms
+code_faster(): 39ms
+code_rayon(): 98ms
+code_faster_2(): 11ms

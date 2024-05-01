@@ -38,7 +38,6 @@ if [ -z "$1" ]
 then
     echo "No argument supplied"
     build
-    clear
 elif [ "$1" == "test" ]
 then
     test_linux

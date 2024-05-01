@@ -3,7 +3,8 @@ mkdir -p "./usb_drive"
 cd "./usb_drive"
 
 # Create a 512KB image file and format it as ext4
-fallocate -l 512KB data.img
+# min drive size 256 for ext4
+fallocate -l 256KB data.img
 mkfs -t ext4 ./data.img
 
 # Mount the image file to a new directory

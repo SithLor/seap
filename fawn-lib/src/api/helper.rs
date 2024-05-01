@@ -1,3 +1,4 @@
+use std::any::type_name;
 pub fn handle_option_string(s: Option<String>) -> String {
     match s {
         Some(s) => s,
@@ -13,8 +14,6 @@ pub fn handle_option_bool(s: Option<bool>) -> bool {
 pub fn ptr_const_i8_to_ptr_mut_u16(ptr: *const i8) -> *mut u16 {
     ptr as *mut u16
 }
-use std::any::type_name;
-
 pub fn type_of<T>(_: T) -> &'static str {
     type_name::<T>()
 }
