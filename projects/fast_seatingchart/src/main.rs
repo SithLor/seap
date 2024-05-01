@@ -3,11 +3,12 @@ const INPUT_FILE: &str = "./src/people.m.txt";
 const OUTPUT_FILE: &str = "./src/seating_chart.txt";
 
 use rayon::prelude::*;
-use std::io::{BufWriter, Write, BufReader, BufRead};
+use std::io::{self,BufWriter, Write, BufReader, BufRead};
 use std::fs::File;
 use std::sync::Mutex;
 use std::collections::HashMap;
 use std::cell::RefCell;
+
 
 thread_local! {
     static MEMO: RefCell<HashMap<usize, (usize, usize)>> = RefCell::new(HashMap::new());
@@ -129,7 +130,50 @@ fn code_rayon() {
 }
 
 
-fn code_faster() {
+
+fn code_faster() -> io::Result<()> {
+    let input = File::open(INPUT_FILE).expect("Unable to read file");
+    let input = unsafe { memmap2::Mmap::map(&input) }.expect("Failed to map in file");
+    let input = &input[..];
+
+    let output: File = File::create(OUTPUT_FILE).expect("Unable to create file");
+    let mut output = BufWriter::new(output);
+
+    let line_indices = input
+        .iter()
+        .enumerate()
+        .filter(|&(_, &b)| b == b'\n')
+        .map(|(i, _)| i);
+    let mut line_offsets: Vec<_> = std::iter::once(0).chain(line_indices).collect();
+    if line_offsets
+        .last()
+        .is_some_and(|&last| last != input.len() - 1)
+    {
+        line_offsets.push(input.len())
+    }
+
+    let cols = (line_offsets.len() as f64 - 1.).sqrt().ceil() as usize;
+
+    let people = line_offsets
+        .windows(2)
+        .map(|window| window.try_into().unwrap())
+        // SAFETY: All the indices were taken from either enumerating the input, the first start is 0,
+        // and end is input.len(), which are all valid
+        .map(|&[start, end]: &[usize; 2]| unsafe { input.get_unchecked(start..end) });
+
+    people
+        .enumerate()
+        .try_for_each(|(i, person)| -> io::Result<()> {
+            output.write_all(person)?;
+            output.write_all(b" ")?;
+            let col = i % cols;
+            if col == cols - 1 {
+                output.write_all(b"\n")?;
+            }
+            Ok(())
+        })
+}
+fn code_faster_1() {
     let input: File = File::open(INPUT_FILE).expect("Unable to read file");
     let input: BufReader<File> = BufReader::new(input);
 
