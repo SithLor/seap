@@ -1,7 +1,7 @@
 {
     "java.debug.settings.onBuildFailureProceed": true,
     "rust-analyzer.linkedProjects": [
-        "./fast_gradingchart/Cargo.toml",
-        "./pi_stuff/Cargo.toml"
+        "./juke_runer/Cargo.toml",
+        "./juke/Cargo.toml",
     ]
 }
