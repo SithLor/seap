@@ -1,5 +1,5 @@
 //use rustup 2023 
-const INPUT_FILE: &str = "./src/people.m.txt";
+const INPUT_FILE: &str = "./src/people.txt";
 const OUTPUT_FILE: &str = "./src/seating_chart.txt";
 
 use rayon::prelude::*;
@@ -8,7 +8,6 @@ use std::fs::File;
 use std::sync::Mutex;
 use std::collections::HashMap;
 use std::cell::RefCell;
-
 
 thread_local! {
     static MEMO: RefCell<HashMap<usize, (usize, usize)>> = RefCell::new(HashMap::new());
@@ -59,7 +58,6 @@ fn code_slow(){
         }
         writeln!(file).unwrap();
     }
-    println!("Seating chart written to {}", OUTPUT_FILE);
 }
 
 fn code_fast() {
@@ -90,7 +88,6 @@ fn code_fast() {
         }
         writeln!(output).unwrap();
     }
-    println!("Seating chart written to {}", OUTPUT_FILE);
 }
 
 fn code_rayon() {
@@ -126,12 +123,37 @@ fn code_rayon() {
         }
         writeln!(output).unwrap();
     }
-    println!("Seating chart written to {}", OUTPUT_FILE);
 }
 
 
+fn code_faster() {
+    let input: File = File::open(INPUT_FILE).expect("Unable to read file");
+    let input: BufReader<File> = BufReader::new(input);
 
-fn code_faster() -> io::Result<()> {
+    let output: File = File::create(OUTPUT_FILE).expect("Unable to create file");
+    let mut output: BufWriter<File> = BufWriter::new(output);
+
+    let people: Vec<String> = input.lines()
+        .filter_map(|line| line.ok())
+        .collect();
+
+    let (rows, cols) = min_rows_cols(people.len());
+    let mut seating_chart: Vec<Vec<String>> = vec![vec!["".to_string(); cols]; rows];
+
+    for (i, person) in people.iter().enumerate() {
+        let row = i / cols;
+        let col = i % cols;
+        seating_chart[row][col] = person.to_string();
+    }
+
+    for row in &seating_chart {
+        let line: String = row.join(" ");
+        writeln!(output, "{:20}", line).expect("Unable to write to file");
+    }
+}
+
+#[inline]
+fn code_faster_2() -> io::Result<()> {
     let input = File::open(INPUT_FILE).expect("Unable to read file");
     let input = unsafe { memmap2::Mmap::map(&input) }.expect("Failed to map in file");
     let input = &input[..];
@@ -173,36 +195,23 @@ fn code_faster() -> io::Result<()> {
             Ok(())
         })
 }
-fn code_faster_1() {
-    let input: File = File::open(INPUT_FILE).expect("Unable to read file");
-    let input: BufReader<File> = BufReader::new(input);
-
-    let output: File = File::create(OUTPUT_FILE).expect("Unable to create file");
-    let mut output: BufWriter<File> = BufWriter::new(output);
-
-    let people: Vec<String> = input.lines()
-        .filter_map(|line| line.ok())
-        .collect();
-
-    let (rows, cols) = min_rows_cols(people.len());
-    let mut seating_chart: Vec<Vec<String>> = vec![vec!["".to_string(); cols]; rows];
-
-    for (i, person) in people.iter().enumerate() {
-        let row = i / cols;
-        let col = i % cols;
-        seating_chart[row][col] = person.to_string();
-    }
-
-    for row in &seating_chart {
-        let line: String = row.join(" ");
-        writeln!(output, "{:20}", line).expect("Unable to write to file");
-    }
-    println!("Seating chart written to {}", OUTPUT_FILE);
-}
 fn main() {
     //Get the time it takes to run the code
+
     let start: std::time::Instant = std::time::Instant::now();
-    code_rayon();
-    println!("Time: {}ms", start.elapsed().as_millis());
+    code_fast();//4500ms
+    println!("code_fast(): {}ms", start.elapsed().as_millis());
+
+    let _start: std::time::Instant = std::time::Instant::now();
+    code_faster();//4500ms
+    println!("code_faster(): {}ms", _start.elapsed().as_millis());
+
+    let __start: std::time::Instant = std::time::Instant::now();
+    code_rayon();//4500ms
+    println!("code_rayon(): {}ms", __start.elapsed().as_millis());
+
+    let ___start: std::time::Instant = std::time::Instant::now();
+    code_faster_2();//880ms
+    println!("code_faster_2(): {}ms", ___start.elapsed().as_millis());
     
 }
