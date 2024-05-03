@@ -1,22 +1,23 @@
 
 # 100k
 
-code_fast(): 97ms
-code_faster(): 39ms
-code_rayon(): 98ms
-code_faster_2(): 11ms
+code_fast(): 29ms
+code_faster(): 17ms
+code_rayon(): 27ms
+code_faster_2(): 5ms
 
 # 1 millons
 
-code_fast(): 4846ms
-code_faster(): 2405ms
-code_rayon(): 5378ms
-code_faster_2(): 1027ms
+code_fast(): 3214ms
+code_faster(): 1924ms
+code_rayon(): 3650ms
+code_faster_2(): 534ms
+
 
 
 # Commands 
 
 ```sh
-cargo rustc --release -- -Z tune-cpu=machine -C opt-level=3 -C overflow-checks=true -C strip=debuginfo -C target-cpu=native
+cargo rustc --release -- -Z tune-cpu=machine -C opt-level=3 -C overflow-checks=no -C strip=debuginfo -C target-cpu=native -C debuginfo=0 -C lto
 ./target/release/fast_seatingchart
 ```

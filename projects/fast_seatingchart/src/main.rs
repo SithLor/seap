@@ -12,6 +12,7 @@ use std::cell::RefCell;
 thread_local! {
     static MEMO: RefCell<HashMap<usize, (usize, usize)>> = RefCell::new(HashMap::new());
 }
+#[inline]
 fn min_rows_cols(amount: usize) -> (usize, usize) {
     MEMO.with(|memo| {
         if let Some(&result) = memo.borrow().get(&amount) {
@@ -36,6 +37,7 @@ fn min_rows_cols(amount: usize) -> (usize, usize) {
 //    let cols = if rows * (rows - 1) >= amount { rows - 1 } else { rows };
 //    (rows, cols)
 //}
+#[inline]
 fn code_slow(){
     let file: std::fs::File = std::fs::File::open(INPUT_FILE).unwrap();
     let reader: std::io::BufReader<std::fs::File> = std::io::BufReader::new(file);
@@ -59,7 +61,7 @@ fn code_slow(){
         writeln!(file).unwrap();
     }
 }
-
+#[inline]
 fn code_fast() {
     let input: std::fs::File = std::fs::File::open(INPUT_FILE).expect("Unable to read file");
     let input: std::io::BufReader<std::fs::File> = std::io::BufReader::new(input);
@@ -89,7 +91,7 @@ fn code_fast() {
         writeln!(output).unwrap();
     }
 }
-
+#[inline]
 fn code_rayon() {
     let input: File = File::open(INPUT_FILE).expect("Unable to read file");
     let input: BufReader<File> = BufReader::new(input);
@@ -125,7 +127,7 @@ fn code_rayon() {
     }
 }
 
-
+#[inline]
 fn code_faster() {
     let input: File = File::open(INPUT_FILE).expect("Unable to read file");
     let input: BufReader<File> = BufReader::new(input);
@@ -211,7 +213,7 @@ fn main() {
     println!("code_rayon(): {}ms", __start.elapsed().as_millis());
 
     let ___start: std::time::Instant = std::time::Instant::now();
-    code_faster_2();//880ms
+    //code_faster_2();//880ms
     println!("code_faster_2(): {}ms", ___start.elapsed().as_millis());
     
 }
