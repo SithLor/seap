@@ -1,58 +1,33 @@
-static VERSION: &str = "0.1.0";
 
-mod rdk {
-    pub mod Objects {
-        pub trait ObjectToString {
-            fn to_string(&self) -> String;
-        }
-        pub trait ObjectNew<T> {
-            fn new(value: T) -> Object<T>;
-        }
-        pub trait ObjectGetValue<T> {
-            fn get_value(&self) -> &T;
-        }
-        pub trait ObjectSetValue<T> {
-            fn set_value(&mut self, value: T);
-        }
-        pub struct Object<T> {
-            pub value: T,
-        }
-        impl<T: std::fmt::Debug> ObjectToString for Object<T> {
-            fn to_string(&self) -> String {
-                format!("{:?}", self.value)
-            }
-        }
-        impl<T> ObjectNew<T> for Object<T> {
-            fn new(value: T) -> Object<T> {
-                Object { value }
-            }
-        }
+use rusty_jsc::{JSContext, JSObject, JSValue, JSString};
+use rusty_jsc_macros::callback;
 
-        impl<T> ObjectGetValue<T> for Object<T> {
-            fn get_value(&self) -> &T {
-                &self.value
-            }
-        }
-        impl<T> ObjectSetValue<T> for Object<T> {
-            fn set_value(&mut self, value: T) {
-                self.value = value;
-            }
-        }
-    }
+#[callback]
+fn greet(
+    ctx: JSContext,
+    function: JSObject,
+    this: JSObject,
+    args: &[JSValue],
+) -> Result<JSValue, JSValue> {
+    // Parse the argument as a function and call it with an argument
+    let callback_function = args[0].to_object(&ctx).unwrap().call(&ctx, None, &[JSValue::string(&ctx, "Tom")]).unwrap();
+    Ok(callback_function)
 }
 
 fn main() {
-    use crate::rdk::Objects::Object;
-    use crate::rdk::Objects::ObjectNew;
-    use crate::rdk::Objects::ObjectToString;
-    use crate::rdk::Objects::ObjectGetValue;
-    use crate::rdk::Objects::ObjectSetValue;
+    let mut context = JSContext::default();
+    let global: JSObject = context.get_global_object();
+    
+    let callback: JSValue = JSValue::callback(&context, Some(greet));
+    // add the methods to the global object
+    global.set_property(&context, "greet", callback).unwrap();
 
-    let mut obj: Object<i32> = Object::new(10);
-
-
-    println!("Object: {}", obj.to_string());
-    println!("Object value: {}", obj.get_value());
-    obj.set_value(20);
-    println!("Object value: {}", obj.get_value());
+    match context.evaluate_script("greet((name) => 'Hello, ' + name)", 1) {
+        Ok(value) => {
+            println!("{}", value.to_string(&context).unwrap());
+        }
+        Err(e) => {
+            println!("Uncaught: {}", e.to_string(&context).unwrap())
+        }
+    }
 }
