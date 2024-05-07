@@ -11,3 +11,7 @@ this shit ton of note
 
 # write shit memory 
 
+to make wasm3 work 
+
+rustup target add wasm32-unknown-unknown
+then run is said dir

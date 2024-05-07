@@ -1,33 +1,29 @@
+//wasm call
+fn extern_add(a: i32, b: i32) -> i32 {
+    use wasm3::Environment;
+    use wasm3::Runtime ;
+    use wasm3::Module;
+    use wasm3::Function;
+    let path = "../../wasm_examples/out/add.wasm";
+    let func_name = "extern_add";
 
-use rusty_jsc::{JSContext, JSObject, JSValue, JSString};
-use rusty_jsc_macros::callback;
-
-#[callback]
-fn greet(
-    ctx: JSContext,
-    function: JSObject,
-    this: JSObject,
-    args: &[JSValue],
-) -> Result<JSValue, JSValue> {
-    // Parse the argument as a function and call it with an argument
-    let callback_function = args[0].to_object(&ctx).unwrap().call(&ctx, None, &[JSValue::string(&ctx, "Tom")]).unwrap();
-    Ok(callback_function)
+    let env: Environment = Environment::new().expect("Unable to create environment");
+    let rt:Runtime = env
+        .create_runtime(1024 * 60)
+        .expect("Unable to create runtime");
+    let module = Module::parse(&env, &include_bytes!(path)[..])
+        .expect("Unable to parse module");
+    let mut module: Module = rt.load_module(module).expect("Unable to load module");
+    //edit stuff here
+    let func: Function<(i64, i64), i64> = module
+        .find_function::<(i64, i64), i64>("add")
+        .expect("Unable to find function");
+    func.call(a, b).unwrap()  
 }
 
-fn main() {
-    let mut context = JSContext::default();
-    let global: JSObject = context.get_global_object();
-    
-    let callback: JSValue = JSValue::callback(&context, Some(greet));
-    // add the methods to the global object
-    global.set_property(&context, "greet", callback).unwrap();
-
-    match context.evaluate_script("greet((name) => 'Hello, ' + name)", 1) {
-        Ok(value) => {
-            println!("{}", value.to_string(&context).unwrap());
-        }
-        Err(e) => {
-            println!("Uncaught: {}", e.to_string(&context).unwrap())
-        }
-    }
+fn main(){
+    let a = 1;
+    let b = 2;
+    let result = extern_add(a, b);
+    println!("{} + {} = {}", a, b, result);
 }

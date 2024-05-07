@@ -23,6 +23,7 @@ pip install -r requirements.txt
 
 # Add Rust target for Windows
 rustup target add x86_64-pc-windows-gnu
+rustup target add wasm32-unknown-unknown
 cargo install rustfilt
 
 # Install GCC for Windows
