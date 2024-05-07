@@ -1,5 +1,5 @@
 [package]
-name = "add"
+name = "wasm_test"
 version = "0.1.0"
 authors = ["stilor"]
 edition = "2018"
