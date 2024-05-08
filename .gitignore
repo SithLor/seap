@@ -23,4 +23,5 @@ sig.txt
 *.objdump.symboltable
 *.objdump.dynamicrelocationtable
 *.objdump.dynamicsymboltable
-./pi_stuff/src/pi-billion.txt
+./seap-js/node_modules/
+./seap-js/package-lock.json
