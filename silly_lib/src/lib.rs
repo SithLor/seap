@@ -1,6 +1,7 @@
 //make java array api
 pub mod link;
 pub mod color;
+pub mod car;
 pub fn has_java() -> bool {
     use std::env;
     let java_home: Result<String, env::VarError> = env::var("JAVA_HOME");
@@ -21,6 +22,7 @@ macro_rules! Text {
         concat!($(stringify!($x), "\n",)*)
     };
 }
+
 
 #[cfg(test)]
 mod tests {
