@@ -2,7 +2,7 @@
 pub mod link;
 pub mod color;
 pub mod car;
-pub mod plugins;
+pub mod kong;
 pub fn has_java() -> bool {
     use std::env;
     let java_home: Result<String, env::VarError> = env::var("JAVA_HOME");
