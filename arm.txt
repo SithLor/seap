@@ -4,6 +4,54 @@ int test(int x,float y) {
 }
 
 
+power64 gcc trunk -03:
+test(int, float):
+        .quad   .L.test(int, float),.TOC.@tocbase,0
+.L.test(int, float):
+        sradi 10,3,53
+        rldicl 9,3,0,53
+        addi 10,10,1
+        addi 9,9,2047
+        cmpldi 0,10,2
+        or 9,9,3
+        rldicr 9,9,0,52
+        bge 0,.L2
+        mr 9,3
+.L2:
+        std 9,-8(1)
+        addi 9,1,-16
+        ori 2,2,0
+        lfd 0,-8(1)
+        fcfid 12,0
+        frsp 0,12
+        fmuls 1,0,1
+        fctiwz 1,1
+        stfiwx 1,0,9
+        lwz 3,-16(1)
+        extsw 3,3
+        blr
+        .long 0
+        .byte 0,9,0,0,0,0,0,0
+powerpc64 clang (trunk) -03:
+test(int, float):                              # @test(int, float)
+        .quad   .Lfunc_begin0
+        .quad   .TOC.@tocbase
+        .quad   0
+.Lfunc_begin0:
+        std 3, -16(1)
+        addi 4, 1, -4
+        lfd 0, -16(1)
+        fcfid 0, 0
+        frsp 0, 0
+        fmuls 0, 0, 1
+        fctiwz 0, 0
+        stfiwx 0, 0, 4
+        lwa 3, -4(1)
+        blr
+        .long   0
+        .quad   0
+
+
 armv8-a clang 18.1.0 -03:
 test(int, float):  // @test(int, float)
         scvtf   s1, w0
