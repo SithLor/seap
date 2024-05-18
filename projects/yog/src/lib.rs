@@ -12,13 +12,16 @@ mod tests {
     #[test]
     fn color(){
         {
-        let c_u8: color::RGBA<u8> = color::RGBA::<u8>::new(255, 255, 255);
-        let c_u16: color::RGBA<u16> = color::RGBA::<u16>::new(2055, 2055, 2055);
-        let c_u32: color::RGBA<u32> = color::RGBA::<u32>::new(255000, 255000, 25500);
-        assert_eq!(c_u8.to_string(), "rgba(255, 255, 255, 100)");
-        assert_eq!(c_u16.to_string(), "rgba(2055, 2055, 2055, 100)");
-        assert_eq!(c_u32.to_string(), "rgba(255000, 255000, 25500, 100)");
+            
+            let c_u8: color::RGBA<u8> = color::RGBA::<u8>::new(255, 255, 255);
+            let c_u16: color::RGBA<u16> = color::RGBA::<u16>::new(2055, 2055, 2055);
+            let c_u32: color::RGBA<u32> = color::RGBA::<u32>::new(255000, 255000, 25500);
+            assert_eq!(c_u8.to_string(), "rgba(255, 255, 255, 100)");
+            assert_eq!(c_u16.to_string(), "rgba(2055, 2055, 2055, 100)");
+            assert_eq!(c_u32.to_string(), "rgba(255000, 255000, 25500, 100)");
+
         }
+
         {
         let c_u8: color::RGBA<u8> = color::RGBA::<u8>::new_with_alpha(255, 255, 255, 50);
         let c_u16: color::RGBA<u16> = color::RGBA::<u16>::new_with_alpha(2055, 2055, 2055, 50);

@@ -1,7 +1,8 @@
 
 pub mod strings {
+
     pub fn remove_char_at(s:&str,postions:Vec<usize>)->String{
-        let mut result = String::new();
+        let mut result:String = String::new();
         for (i,c) in s.chars().enumerate(){
             if !postions.contains(&i){
                 result.push(c);
@@ -9,6 +10,8 @@ pub mod strings {
         }
         result
     }
+    //String::new("hello world"), let e = "hello".to_string()
+    
     pub fn spilt_string(s:&str)->Vec<String>{
         let mut result = Vec::new();
         let mut temp = String::new();
