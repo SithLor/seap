@@ -19,7 +19,4 @@ pub extern "C" fn pack(a: u16, b: u16, c: u16, d: u16) -> u64 {
 
 
 
-#[panic_handler]
-fn handle_panic(_: &core::panic::PanicInfo) -> ! {
-    unreachable!()
-}
+#[panic_handler]fn handle_panic(_: &core::panic::PanicInfo) -> ! {unreachable!()}

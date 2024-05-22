@@ -1,46 +1,39 @@
-
-use rocket::{launch, routes, Build, Rocket};
-//high perf server for managing game servers
-
-//api routes
-
-//start
-//stop
-//restart
-//set_config
-//get_config
-//add_mod
-//remove_mod
-//list_mods
-
-fn _kill_server() {
-    //kill the server
-}
-fn _start_server() {
-    //start the server
-}
-fn _restart_server() {
-    //restart the server
-}
-fn _set_config() {
-    //set the server config
-}
-fn _get_config() {
-    //get the server config
-}
-fn _add_mod() {
-    //add a mod to the server
-}
-fn _remove_mod() {
-    //remove a mod from the server
-}
-fn _list_mods() {
-    //list all mods on the server
-}
+use rocket::data::ToByteUnit;
+use rocket::{get, launch, post, routes, Build, Data, Rocket};
+use std::io::prelude::*;
+use std::process::Command;
 
 //https://rocket.rs/guide/v0.5/overview/#overview
 
+//complie the wasm on the file
+
+#[post("/create_function", data = "<data>")]
+async fn create_function(data: Data<'_>) -> String {
+    let mut file = std::fs::File::create(format!("./src/tmp/{}.rs", "wasm")).unwrap();
+    data.open(1.megabytes())
+        .into_string()
+        .await
+        .unwrap()
+        .map(|s| file.write_all(s.as_bytes()).unwrap());
+
+    let output = Command::new("rustc")
+        .arg(format!("./src/tmp/{}.rs", "wasm"))
+        //.arg("target-feature=+crt-static")
+        .arg("--target=wasm32-unknown-unknown")
+        .arg("--crate-type=cdylib")
+        .arg("-o ./src/tmp/wasm.wasm")
+        .output()
+        .expect("Failed to execute command");
+    if output.status.success() {
+        //read the file and return the wasm
+        let bytes_hex = std::fs::read(format!("./src/tmp/{}.wasm", "wasm")).unwrap();
+        format!("0x{}", hex::encode(bytes_hex))
+    } else {
+        format!("Error: {}", String::from_utf8_lossy(&output.stderr))
+    }
+}
+
 #[launch]
 fn rocket() -> Rocket<Build> {
-    rocket::build().mount("/files", routes![])
+    rocket::build().mount("/", routes![create_function])
 }
