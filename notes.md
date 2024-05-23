@@ -2,6 +2,10 @@
 A library and application for various things like macros and more.
 
 **WARNING:** This project involves the use of NTAPI (Windows Native API), which can be unstable and potentially risky. 
+
+
+
+// https://github.com/amdf/NativeShell
 ## Installation
 
 if on Github codespace run this 
