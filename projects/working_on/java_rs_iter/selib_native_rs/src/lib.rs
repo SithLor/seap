@@ -129,6 +129,26 @@ pub unsafe extern "system" fn Java_HelloWorld_counterDestroy(
     let _boxed_counter = Box::from_raw(counter_ptr as *mut Counter);
 }
 
+marco_rules! async_computation {
+    ($env: ident, $callback: ident) => {
+        let jvm = $env.get_java_vm().unwrap();
+        let callback = $env.new_global_ref($callback).unwrap();
+        let (tx, rx) = mpsc::channel();
+        let _ = thread::spawn(move || {
+            tx.send(()).unwrap();
+            let mut env = jvm.attach_current_thread().unwrap();
+            for i in 0..11 {
+                let progress = (i * 10) as jint;
+                env.call_method(&callback, "asyncCallback", "(I)V", &[progress.into()])
+                    .unwrap();
+                thread::sleep(Duration::from_millis(100));
+            }
+        });
+        rx.recv().unwrap();
+    };
+}
+
+
 #[no_mangle]
 pub extern "system" fn Java_HelloWorld_asyncComputation(
     env: JNIEnv,
