@@ -1,1 +1,0 @@
-//https://imagetostl.com/convert/file/obj/to/xyz
