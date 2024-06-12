@@ -1,8 +1,4 @@
-use num_traits::Zero;
 
-fn make_graph<T: Zero + Clone>(rows: usize, cols: usize) -> Vec<Vec<T>> {
-    vec![vec![T::zero(); cols]; rows]
-}
 
 #[cfg(test)]
 mod tests {
