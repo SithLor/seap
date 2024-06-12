@@ -1,41 +1,34 @@
-//Als Complier framework
-
-
-export function version(): string {
-    return "0.1.1"
+namespace Debug {
+    export interface DebugInfo {
+        time_created: string;
+        id: string;
+    }
+    export function CreateDebugObject(): DebugInfo {
+        return {
+            time_created: new Date().toISOString(),
+            id: Math.random().toString(36).substring(2, 15)
+        };
+    }
 }
 
+namespace Node {
+    
+    export interface EmptyNode {
+        type:"empty";
+    }
+
+}
+
+namespace C_Preprossor {
+
+
+
+}
 // define marco solver
-interface DefineAstNode {
-    expr:string
-    name:string
-    is_func:string
-
-    debug:{
-        debug_1:string,
-        debug_2:string,
-        debug_3:string,
-    }
-}
 
 
-function DefineString_to_DefineAstNode(og_expr:string){
-    //spilt
-    //#define e 1+2/3 -> 
 
-    const debug_1 = og_expr.charAt(0);
-    const debug_2 = og_expr.substring(1,7);
-    const debug_3 = og_expr.substring(0,7);
-    console.log(debug_1,debug_2,debug_3)
-    if (og_expr.charAt(0) != "#" == true ||
-        og_expr.substring(0,6) != "#define"
-    ){
-        const name_and_expr = og_expr.substring(8,og_expr.length)
-        const name = name_and_expr.split(" ");
-        
-        console.log(name_and_expr,name)
-    }else {
-        return "no"
-    }
-}
-DefineString_to_DefineAstNode("#define e 1/2+3")
+
+console.log(DefineString_to_DefineAstNode("#define e 1/2+3"));
+console.log(DefineString_to_DefineAstNode("#define e(x) x+3"));
+console.log(DefineString_to_DefineAstNode("#define e(x,y) x+y"));
