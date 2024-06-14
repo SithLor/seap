@@ -4,56 +4,26 @@
 //Pipeline:
 //extention:aes,possable support for proteched mode
 ///info
-/// Data width 32 bits 
-/// Address 32 bits 
+/// Data width 32 bits
+/// Address 32 bits
 /// Pipeline
 /// 6 stage instruction
 mod i386 {
     struct AccumulatorRegister {
-        pub eax:i32,
-        pub ax:i16,
-        pub al:i8
+        pub eax: i32,
+        pub ax: i16,
+        pub al: i8,
     }
     impl AccumulatorRegister {
         fn new() -> AccumulatorRegister {
             return AccumulatorRegister {
-                eax:0,
-                ax:0,
-                al:0
-            }
+                eax: 0,
+                ax: 0,
+                al: 0,
+            };
         }
     }
 }
-
-pub mod intel_sha_e {
-    pub mod sha1 {
-        pub const SHA1RNDS4:&str = "SHA1RNDS4";
-        pub const SHA1NEXTE:&str = "SHA1NEXTE";
-        pub const SHA1MSG1:&str = "SHA1MSG1";
-        pub const SHA1MSG2:&str = "SHA1MSG2";
-    }
-    pub mod sha256 {
-        pub const SHA256RNDS2:&str = "SHA256RNDS2";
-        pub const SHA256MSG1:&str = "SHA256MSG1";
-        pub const SHA256MSG2:&str = "SHA256MSG2";
-    
-        
-    }
-}
-
-
-macro_rules! gen_func_pub {
-    ($name:ident, $arg:tt, $return_type:ty, $body:block) => {
-        pub fn $name $arg -> $return_type $body
-    };
-}
-macro_rules! gen_func_priv {
-    ($name:ident, $arg:tt, $return_type:ty, $body:block) => {
-        fn $name $arg -> $return_type $body
-    };
-}
-
-
 
 //gen_getter_and_setter!(AccumulatorRegister, eax, ax, al);
 macro_rules! near_limit {
@@ -67,11 +37,130 @@ macro_rules! near_limit {
         }
     };
 }
+//https://www.ardent-tool.com/CPU/docs/Intel/387/datasheets/240225-009.pdf
+pub mod _80387SX_ {
+    struct Processor_input {
+        BUSY: bool,
 
+        //cpu from main cpu
+        CPU_ip: u32,
+        CPU_dp: u32,
+    }
+    struct Processor_output {}
+
+    struct Processor {
+        input: Processor_input,
+        output: Processor_output,
+    }
+    impl Processor {
+        fn new() -> Processor {
+            return Processor {
+                input: Processor_input { BUSY: false },
+                output: Processor_output {},
+            };
+        }
+    }
+    enum Register {
+        // (R0 –R7)
+        R0,
+        R1,
+        R2,
+        R3,
+        R4,
+        R5,
+        R6,
+        R7,
+    }
+    enum InstructionSet {
+        /// ArithmeticInstructions
+        
+        // Addition
+        FADD, // Add Real
+        FADDP, // Add Real and pop
+        FIADD, // Add Integer
+        // Subtraction
+        FSUB,   // Subtract Real
+        FSUBP,  // Subtract Real and pop
+        FISUB,  // Subtract Integer
+        FSUBR,  // Subtract Real reversed
+        FSUBRP, // Subtract Real reversed and pop
+        FISUBR, // Subtract Integer reversed
+        // Multiplication
+        FMUL,  // Multiply Real
+        FMULP, // Multiply Real and pop
+        FIMUL, // Multiply Integer
+        // Division
+        FDIV,   // Divide Real
+        FDIVP,  // Divide Real and pop
+        FIDIV,  // Divide Integer
+        FDIVR,  // Divide Real reversed
+        FDIVRP, // Divide Real reversed and pop
+
+        /// DataTransfer
+        
+        FILD, // Load (convert from) Integer (word, short, long)
+        FIST,  // Store (convert to) Integer (word, short)
+        FISTP, // Store (convert to) Integer and pop (word, short, long)
+        // Packed Decimal Transfers
+        FBLD,  // Load (convert from) packed decimal
+        FBSTP, // Store packed decimal and pop
+
+        /// ProcessorInstructionsAdministrative
+        
+        FINIT, // Initialize Math CoProcessor
+        FLDCW,    // Load Control Word and Load Status Word
+        FSTCW,    // Store Control Word
+        FSTSW,    // Store Status Word
+        FSTSW_AX, // Store Status Word to AX register
+        FCLEX,    // Clear Exceptions
+        FSTENV,   // Store Environment
+        FLDENV,   // Load Environment
+        FSAVE,    // Save State
+        FRSTOR,   // Restore State
+        FINCSTP,  // Increment Stack pointer
+        FDECSTP,  // Decrement Stack pointer
+        FFREE,    // Free Register
+        FNOP,     // No Operation
+        FWAIT,    // Report Math CoProcessor Error
+    }
+
+
+}
 
 fn main() {
+    //80387SX  math co processor
+    let chicken_bit_fpu = 0;
+    //
+    enum DataTransferInstructions {
+        FILD,  // Load (convert from) Integer (word, short, long)
+        FIST,  // Store (convert to) Integer (word, short)
+        FISTP, // Store (convert to) Integer and pop (word, short, long)
 
-
-
-
+        // Packed Decimal Transfers
+        FBLD,  // Load (convert from) packed decimal
+        FBSTP, // Store packed decimal and pop
+    }
+    enum ArithmeticInstruction {
+        // Addition
+        FADD,  // Add Real
+        FADDP, // Add Real and pop
+        FIADD, // Add Integer
+        // Subtraction
+        FSUB,   // Subtract Real
+        FSUBP,  // Subtract Real and pop
+        FISUB,  // Subtract Integer
+        FSUBR,  // Subtract Real reversed
+        FSUBRP, // Subtract Real reversed and pop
+        FISUBR, // Subtract Integer reversed
+        // Multiplication
+        FMUL,  // Multiply Real
+        FMULP, // Multiply Real and pop
+        FIMUL, // Multiply Integer
+        // Division
+        FDIV,   // Divide Real
+        FDIVP,  // Divide Real and pop
+        FIDIV,  // Divide Integer
+        FDIVR,  // Divide Real reversed
+        FDIVRP, // Divide Real reversed and pop
+    }
 }
