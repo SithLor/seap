@@ -8,6 +8,38 @@
 /// Address 32 bits 
 /// Pipeline
 /// 6 stage instruction
+mod i386 {
+    struct AccumulatorRegister {
+        pub eax:i32,
+        pub ax:i16,
+        pub al:i8
+    }
+    impl AccumulatorRegister {
+        fn new() -> AccumulatorRegister {
+            return AccumulatorRegister {
+                eax:0,
+                ax:0,
+                al:0
+            }
+        }
+    }
+}
+
+pub mod intel_sha_e {
+    pub mod sha1 {
+        pub const SHA1RNDS4:&str = "SHA1RNDS4";
+        pub const SHA1NEXTE:&str = "SHA1NEXTE";
+        pub const SHA1MSG1:&str = "SHA1MSG1";
+        pub const SHA1MSG2:&str = "SHA1MSG2";
+    }
+    pub mod sha256 {
+        pub const SHA256RNDS2:&str = "SHA256RNDS2";
+        pub const SHA256MSG1:&str = "SHA256MSG1";
+        pub const SHA256MSG2:&str = "SHA256MSG2";
+    
+        
+    }
+}
 
 
 macro_rules! gen_func_pub {
@@ -21,21 +53,7 @@ macro_rules! gen_func_priv {
     };
 }
 
-//arg 0:struct name
-//arg 1 name flied of arg 0
-//arg 2 type flied
-macro_rules! create_getter {
-    ($struct_name:ident, $($field_name:ident : $field_type:ty),+) => {
-        impl $struct_name {
-            $(
-                gen_func_pub!($field_name,&self,&$field_type,{&self.$field_name})
-//                pub fn $field_name(&self) -> &$field_type {
-//                    &self.$field_name
-//                }
-            )+
-        }
-    };
-}
+
 
 //gen_getter_and_setter!(AccumulatorRegister, eax, ax, al);
 macro_rules! near_limit {
@@ -49,32 +67,11 @@ macro_rules! near_limit {
         }
     };
 }
-/// main
-// Accumulator register
-struct AccumulatorRegister {
-    pub eax:i32,
-    pub ax:i16,
-    pub al:i8
-}
-impl AccumulatorRegister {
-    fn new() -> AccumulatorRegister {
-        return AccumulatorRegister {
-            eax:0,
-            ax:0,
-            al:0
-        }
-    }
-}
-//TODO Work MMU
 
 
 fn main() {
-    struct e {
-        a:i32,
-        b:i16,
-        c:i8
-    }
-    //for gen_geter
-    
-    println!("Hello, world!");
+
+
+
+
 }
