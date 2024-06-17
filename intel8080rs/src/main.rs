@@ -61,6 +61,12 @@ pub mod _80387SX_ {
         }
     }
     enum Register {
+        // Status Register 16 bits 
+        status,
+        // Control Register 16 bits
+        control,
+        tag_word
+
         // (R0 –R7)
         R0,
         R1,
