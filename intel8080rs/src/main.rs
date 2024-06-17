@@ -1,32 +1,3 @@
-//shit vm for intel custom i386 with fancy pipeline modern cpu feature expect for branch predtion beascue it allready run a cpu with branch predtion
-//https://en.wikipedia.org/wiki/I386
-
-//Pipeline:
-//extention:aes,possable support for proteched mode
-///info
-/// Data width 32 bits
-/// Address 32 bits
-/// Pipeline
-/// 6 stage instruction
-mod i386 {
-    struct AccumulatorRegister {
-        pub eax: i32,
-        pub ax: i16,
-        pub al: i8,
-    }
-    struct IndexRegister {
-        /// extend Stack pointer 32 bit
-        pub esp:i32,
-        /// Stack pointer 16 bit
-        pub sp:i16,
-        /// extend base pointer 32 bit
-        pub ebp:i32,
-        /// base point 16 bit
-        pub bp:i16,
-        ///
-    }
-
-}
 
 //gen_getter_and_setter!(AccumulatorRegister, eax, ax, al);
 macro_rules! near_limit {
@@ -40,14 +11,20 @@ macro_rules! near_limit {
         }
     };
 }
-//https://www.ardent-tool.com/CPU/docs/Intel/387/datasheets/240225-009.pdf
+
 
 fn main() {
-    //80387SX  math co processor
-    let chicken_bit_fpu = 0;
 
+    let r1 = 0x00;
+    let r2 = 0x01;
+    let r3 = 0x02;
+    let r4 = 0x03;
+    let r5 = 0x04;
+    let r6 = 0x05;
+    let r7 = 0x06;
+    let r8 = 0x07;
 
-    
+    //inst nop,mov,add,sub,mul,div,jump,call,ret,
 
-
+    matcth 
 }
