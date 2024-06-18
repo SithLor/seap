@@ -15,4 +15,7 @@ macro_rules! near_limit {
 fn main() {
 
     //
+    let instructions = ["mov","add","sub","mul","div","inc","dec","cmp","jmp","je","jne","jg","jge","jl","jle","call","ret","push","pop","lea","nop","hlt","int","iret","cli","sti","cld","std","clc","stc","sar","shl","shr","rol","ror","rcl","rcr","and","or","xor","not","neg","test","set","movzx","movsx","xchg","bswap","bsf","bsr","bt","btc","btr","bts","popf","pushf","lahf","sahf","xlat","in","out","ins","outs","rep","repe","repne","repnz","repz","lock","stos","lods","scas","cmps","movs","enter","leave","loop","loopz","loopnz","loopne","loopnz","loopnz","loopne","loopnz"];
+    
+
 }
