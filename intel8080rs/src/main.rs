@@ -12,19 +12,7 @@ macro_rules! near_limit {
     };
 }
 
-
 fn main() {
 
-    let r1 = 0x00;
-    let r2 = 0x01;
-    let r3 = 0x02;
-    let r4 = 0x03;
-    let r5 = 0x04;
-    let r6 = 0x05;
-    let r7 = 0x06;
-    let r8 = 0x07;
-
-    //inst nop,mov,add,sub,mul,div,jump,call,ret,
-
-    matcth 
+    //
 }
